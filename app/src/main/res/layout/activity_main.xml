@@ -7,7 +7,7 @@
     tools:context=".MainActivity"
     android:background="@color/teal_700">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -16,16 +16,27 @@
 
 
         <ImageView
+            android:id="@+id/button_home_foreground"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
+            android:foregroundGravity="center_horizontal"
             android:src="@drawable/button_home_foreground"
-            />
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="516dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="40dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/button_settings_foreground"
+            app:layout_constraintStart_toEndOf="@+id/button_home_foreground"
+            tools:layout_editor_absoluteY="516dp"
+            tools:ignore="MissingConstraints" />
 
 
-
-
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
