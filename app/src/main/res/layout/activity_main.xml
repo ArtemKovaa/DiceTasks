@@ -7,36 +7,15 @@
     tools:context=".MainActivity"
     android:background="@color/teal_700">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent">
-
-
-        <ImageView
-            android:id="@+id/button_home_foreground"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:foregroundGravity="center_horizontal"
-            android:src="@drawable/button_home_foreground"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteY="516dp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_marginStart="40dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/button_settings_foreground"
-            app:layout_constraintStart_toEndOf="@+id/button_home_foreground"
-            tools:layout_editor_absoluteY="516dp"
-            tools:ignore="MissingConstraints" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:menu="@menu/bottom_nav_menu"
+        app:itemIconSize="32dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

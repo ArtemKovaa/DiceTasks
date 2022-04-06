@@ -3,12 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Repos/DiceTasks/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.26614583333333336" />
-        <entry key="..\:/Repos/DiceTasks/app/src/main/res/drawable/button_home_background.xml" value="0.26614583333333336" />
-        <entry key="..\:/Repos/DiceTasks/app/src/main/res/drawable/button_home_foreground.xml" value="0.26614583333333336" />
-        <entry key="..\:/Repos/DiceTasks/app/src/main/res/drawable/button_settings_background.xml" value="0.26614583333333336" />
-        <entry key="..\:/Repos/DiceTasks/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26614583333333336" />
-        <entry key="..\:/Repos/DiceTasks/app/src/main/res/layout/activity_main.xml" value="0.18518518518518517" />
+        <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.26205128205128203" />
+        <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/button_home_background.xml" value="0.13958333333333334" />
+        <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/button_home_foreground.xml" value="0.13958333333333334" />
+        <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/button_settings_background.xml" value="0.13958333333333334" />
+        <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/button_settings_foreground.xml" value="0.13958333333333334" />
+        <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26205128205128203" />
+        <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/navigation_add_background.xml" value="0.14322916666666666" />
+        <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/navigation_add_foreground.xml" value="0.14322916666666666" />
+        <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/navigation_menu_background.xml" value="0.13958333333333334" />
+        <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/navigation_menu_foreground.xml" value="0.13958333333333334" />
+        <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/navigation_settings_background.xml" value="0.14322916666666666" />
+        <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/navigation_settings_foreground.xml" value="0.14322916666666666" />
+        <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/layout/first_fragment.xml" value="0.1234375" />
+        <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/layout/second_fragment.xml" value="0.1234375" />
+        <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1234375" />
+        <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/mipmap-anydpi-v26/button_add.xml" value="0.14322916666666666" />
       </map>
     </option>
   </component>
