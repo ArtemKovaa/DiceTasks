@@ -12,18 +12,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class FirstFragment extends Fragment {
+public class TaskMenuFragment extends Fragment {
 
     private FirstViewModel mViewModel;
 
-    public static FirstFragment newInstance() {
-        return new FirstFragment();
+    public static TaskMenuFragment newInstance() {
+        return new TaskMenuFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.first_fragment, container, false);
+        return inflater.inflate(R.layout.task_menu_fragment, container, false);
     }
 
     @Override

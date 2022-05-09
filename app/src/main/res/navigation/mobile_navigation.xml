@@ -12,9 +12,9 @@
         tools:layout="@layout/activity_main" />
     <fragment
         android:id="@+id/first_fragment"
-        android:name="com.example.dicetasks.FirstFragment"
+        android:name="com.example.dicetasks.TaskMenuFragment"
         android:label="First screen"
-        tools:layout="@layout/first_fragment" />
+        tools:layout="@layout/task_menu_fragment" />
     <fragment
         android:id="@+id/second_fragment"
         android:name="com.example.dicetasks.SecondFragment"
