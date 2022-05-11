@@ -21,7 +21,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewRow> {
     @NonNull
     @Override
     public ViewRow onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_row,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate
+                (R.layout.view_row,parent,false);
         return new ViewRow(view);
     }
 
