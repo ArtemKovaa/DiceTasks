@@ -1,25 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation.xml"
-    app:startDestination="@id/main_activity">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <activity
-        android:id="@+id/main_activity"
-        android:name="com.example.dicetasks.MainActivity"
-        android:label="Main screen"
-        tools:layout="@layout/activity_main" />
-    <fragment
-        android:id="@+id/first_fragment"
-        android:name="com.example.dicetasks.TaskMenuFragment"
-        android:label="First screen"
-        tools:layout="@layout/task_menu_fragment" />
-    <fragment
-        android:id="@+id/second_fragment"
-        android:name="com.example.dicetasks.SecondFragment"
-        android:label="Second screen"
-        tools:layout="@layout/second_fragment" />
+    <item
+        android:id="@+id/navigation_achievements"
+        android:icon="@drawable/ic_achievements"
+        android:title="Menu" />
 
+    <item
+        android:id="@+id/navigation_add"
+        android:icon="@drawable/ic_add"
+        android:title="Add" />
 
-</navigation>
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="Settings" />
+
+</menu>
