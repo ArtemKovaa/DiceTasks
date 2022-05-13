@@ -48,7 +48,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.cardTaskHeader);
+            title = itemView.findViewById(R.id.cardTaskTitle);
             description = itemView.findViewById(R.id.cardTaskDescription);
         }
     }
