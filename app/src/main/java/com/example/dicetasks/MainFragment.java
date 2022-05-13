@@ -20,8 +20,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
 
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -62,7 +62,7 @@ public class MainFragment extends Fragment {
         });
 
 
-        /*tasksDao.getTasks()
+        tasksDao.getTasks()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<Task>>() {
@@ -86,7 +86,7 @@ public class MainFragment extends Fragment {
                     public void onComplete() {
 
                     }
-                });*/
+                });
 
         initRecyclerView(view);
         return view;

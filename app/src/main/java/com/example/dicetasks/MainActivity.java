@@ -54,7 +54,7 @@ public class MainActivity extends FragmentActivity {
                 .replace(R.id.fragment_container, new MainFragment())
                 .commit();
 
-        navigation.setSelectedItemId(R.id.add);
+        navigation.setSelectedItemId(R.id.navigation_add);
     }
 
 }
