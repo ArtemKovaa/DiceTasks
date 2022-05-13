@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-public class AchievementsFragment extends Fragment {
+public class ProfileFragment extends Fragment {
     View v;
 
     @Override

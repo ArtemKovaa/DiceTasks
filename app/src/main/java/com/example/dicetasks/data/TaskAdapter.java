@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,9 +25,17 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     @NonNull
     @Override
     public TaskAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.task_card, parent, false);
+        view.setOnClickListener(v -> {
+            Toast toast = Toast.makeText(v.getContext(), "Hello",Toast.LENGTH_LONG);
+            toast.show();
+
+        });
+        return new ViewHolder(view);
+        /*return new ViewHolder(LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.task_card, parent, false));
+                .inflate(R.layout.task_card, parent, false));*/
     }
 
     @Override

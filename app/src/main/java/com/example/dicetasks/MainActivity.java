@@ -1,7 +1,6 @@
 package com.example.dicetasks;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,7 +9,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends FragmentActivity {
 
@@ -29,8 +27,8 @@ public class MainActivity extends FragmentActivity {
                 case R.id.navigation_settings:
                     selectedFragment = new SettingsFragment();
                     break;
-                case R.id.navigation_achievements:
-                    selectedFragment = new AchievementsFragment();
+                case R.id.navigation_profile:
+                    selectedFragment = new ProfileFragment();
                     break;
             }
             assert selectedFragment != null;
