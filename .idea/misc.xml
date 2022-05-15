@@ -3,49 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/-+studies/Samsung/DiceTasks/app/src/main/res/drawable-anydpi/ic_add.xml" value="0.1" />
-        <entry key="..\:/-+studies/Samsung/DiceTasks/app/src/main/res/drawable/ic_ahievements.xml" value="0.1" />
-        <entry key="..\:/-+studies/Samsung/DiceTasks/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
-        <entry key="..\:/-+studies/Samsung/DiceTasks/app/src/main/res/layout/achievements_fragment.xml" value="0.10989583333333333" />
-        <entry key="..\:/-+studies/Samsung/DiceTasks/app/src/main/res/layout/achievements_layout.xml" value="0.16510416666666666" />
-        <entry key="..\:/-+studies/Samsung/DiceTasks/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/-+studies/Samsung/DiceTasks/app/src/main/res/layout/app_bar_main.xml" value="0.1" />
-        <entry key="..\:/-+studies/Samsung/DiceTasks/app/src/main/res/layout/content_main.xml" value="0.1" />
-        <entry key="..\:/-+studies/Samsung/DiceTasks/app/src/main/res/layout/fragment_home.xml" value="0.25" />
-        <entry key="..\:/-+studies/Samsung/DiceTasks/app/src/main/res/layout/fragment_new_task.xml" value="0.10552536231884058" />
-        <entry key="..\:/-+studies/Samsung/DiceTasks/app/src/main/res/layout/fragment_settings.xml" value="0.25" />
-        <entry key="..\:/-+studies/Samsung/DiceTasks/app/src/main/res/layout/fragment_task_info.xml" value="0.2" />
-        <entry key="..\:/-+studies/Samsung/DiceTasks/app/src/main/res/layout/main_fragment.xml" value="0.1640625" />
-        <entry key="..\:/-+studies/Samsung/DiceTasks/app/src/main/res/layout/settings_fragment.xml" value="0.1640625" />
-        <entry key="..\:/-+studies/Samsung/DiceTasks/app/src/main/res/layout/task_card.xml" value="0.2" />
-        <entry key="..\:/-+studies/Samsung/DiceTasks/app/src/main/res/menu/activity_main_drawer.xml" value="0.15260416666666668" />
-        <entry key="..\:/-+studies/Samsung/DiceTasks/app/src/main/res/menu/bottom_nav_menu.xml" value="0.16510416666666666" />
-        <entry key="..\:/-+studies/Samsung/DiceTasks/app/src/main/res/menu/main.xml" value="0.15260416666666668" />
-        <entry key="..\:/-+studies/Samsung/DiceTasks/app/src/main/res/menu/popup_menu.xml" value="0.1" />
-        <entry key="..\:/-+studies/Samsung/DiceTasks/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
-        <entry key="..\:/-+studies/Samsung/DiceTasks/app/src/main/res/mipmap-anydpi-v26/navigation_add.xml" value="0.1" />
-        <entry key="..\:/AndroidPr/DiceTasks/app/src/main/res/layout/fragment_new_task.xml" value="0.3632246376811594" />
-        <entry key="..\:/AndroidPr/DiceTasks/app/src/main/res/layout/main_fragment.xml" value="0.3632246376811594" />
-        <entry key="..\:/AndroidPr/DiceTasks/app/src/main/res/layout/settings_fragment.xml" value="0.3632246376811594" />
-        <entry key="..\:/AndroidPr/DiceTasks/app/src/main/res/layout/task_card.xml" value="0.3632246376811594" />
-        <entry key="..\:/DiceTasks/app/src/main/res/drawable/priority.xml" value="0.1315" />
-        <entry key="..\:/DiceTasks/app/src/main/res/drawable/shadow.xml" value="0.1" />
-        <entry key="..\:/DiceTasks/app/src/main/res/layout/achievements_fragment.xml" value="0.17831813576494426" />
-        <entry key="..\:/DiceTasks/app/src/main/res/layout/activity_main.xml" value="0.17831813576494426" />
-        <entry key="..\:/DiceTasks/app/src/main/res/layout/fragment_new_task.xml" value="0.17831813576494426" />
-        <entry key="..\:/DiceTasks/app/src/main/res/layout/main_fragment.xml" value="0.14722222222222223" />
-        <entry key="..\:/DiceTasks/app/src/main/res/layout/settings_fragment.xml" value="0.18840579710144928" />
-        <entry key="..\:/DiceTasks/app/src/main/res/layout/task_card.xml" value="0.17831813576494426" />
+        <entry key="..\:/AndroidPr/DiceTasks/app/src/main/res/layout/achievements_fragment.xml" value="0.1921875" />
+        <entry key="..\:/AndroidPr/DiceTasks/app/src/main/res/layout/activity_main.xml" value="0.1921875" />
+        <entry key="..\:/AndroidPr/DiceTasks/app/src/main/res/layout/fragment_new_task.xml" value="0.17119565217391305" />
+        <entry key="..\:/AndroidPr/DiceTasks/app/src/main/res/layout/task_card.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1625" />
-        <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/back_orange_radiobutton.xml" value="0.1" />
-        <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/back_red_radiobutton.xml" value="0.1" />
         <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1625" />
         <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/ic_menu_camera.xml" value="0.1625" />
         <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.1625" />
         <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.1625" />
         <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/ic_setting_background.xml" value="0.1625" />
         <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/ic_setting_foreground.xml" value="0.1625" />
-        <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/my_back.xml" value="0.1" />
         <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/side_nav_bar.xml" value="0.1" />
         <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/layout/app_bar_main.xml" value="0.22826086956521738" />
@@ -55,7 +23,6 @@
         <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/layout/fragment_new_task.xml" value="0.16302083333333334" />
         <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/layout/fragment_slideshow.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/layout/fragment_task_info.xml" value="0.225" />
-        <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/layout/main_fragment.xml" value="0.1" />
         <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/layout/nav_header_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/layout/task_card.xml" value="0.16302083333333334" />
         <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/menu/activity_main_drawer.xml" value="0.10989583333333333" />

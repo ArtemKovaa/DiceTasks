@@ -19,6 +19,7 @@ public class MainActivity extends FragmentActivity {
 
     public RecyclerView list;
 
+    // TODO: remove currentFragment from code for outdated
     public Fragment currentFragment = null;
 
 
@@ -30,11 +31,18 @@ public class MainActivity extends FragmentActivity {
             Fragment selectedFragment = null;
             switch (item.getItemId()) {
                 case R.id.navigation_add:
-                    if(currentFragment != null && currentFragment.toString().equals("MainFragment")){
+                //    if(currentFragment != null && currentFragment.toString().equals("MainFragment")){
+                    if(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
+                            instanceof MainFragment) {
                         //View view = findViewById(R.id.main);
                         //showPopupMenu(view);
-                        selectedFragment = new NewTaskFragment();
                         //return true;
+
+                        selectedFragment = new NewTaskFragment();
+
+                        //making the nav bar go invisible before going to NewTaskFragment
+                        View navView = findViewById(R.id.nav_view);
+                        navView.setVisibility(View.GONE);
                     }
                     else {
                         selectedFragment = new MainFragment();
@@ -111,6 +119,7 @@ public class MainActivity extends FragmentActivity {
                 .replace(R.id.fragment_container, new MainFragment())
                 .commit();*/
 
+        //Summoning the main activity
         navigation.setSelectedItemId(R.id.navigation_add);
     }
 

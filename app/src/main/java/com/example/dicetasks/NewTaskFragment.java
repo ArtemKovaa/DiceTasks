@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -18,6 +19,8 @@ import androidx.fragment.app.FragmentActivity;
 import com.example.dicetasks.data.Task;
 import com.example.dicetasks.data.TasksDB;
 import com.example.dicetasks.data.TasksDao;
+
+import java.util.Objects;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -65,6 +68,10 @@ public class NewTaskFragment extends Fragment {
 
         returnButton.setOnClickListener(v -> {
             returnToHomeScreen();
+
+            //Makes the navView appear back
+            View navView = requireActivity().findViewById(R.id.nav_view);
+            navView.setVisibility(View.VISIBLE);
         });
 
         addTaskButton.setOnClickListener(v -> {
@@ -79,6 +86,10 @@ public class NewTaskFragment extends Fragment {
 
             disposable = tasksDao.insert(task)
                     .subscribeOn(Schedulers.io()).subscribe(this::returnToHomeScreen);
+
+            //Makes the navView appear back
+            View navView = requireActivity().findViewById(R.id.nav_view);
+            navView.setVisibility(View.VISIBLE);
         });
 
         highPriorityButton.setOnClickListener(v -> {
@@ -92,6 +103,18 @@ public class NewTaskFragment extends Fragment {
         lowPriorityButton.setOnClickListener(v -> {
             taskPriority = 0;
         });
+
+        //Replaces the event of pressing down the system back button
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                View navView = requireActivity().findViewById(R.id.nav_view);
+                navView.setVisibility(View.VISIBLE);
+                returnToHomeScreen();
+            }
+        };
+        // TODO: check if getViewLifecycleOwner is not in very high SDK (21 required)
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
         return view;
     }
@@ -112,7 +135,6 @@ public class NewTaskFragment extends Fragment {
                 .beginTransaction()
                 .replace(R.id.fragment_container, MainFragment.class, null)
                 .commit();
-
     }
 
     @Override
