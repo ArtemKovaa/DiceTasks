@@ -4,7 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:id="@+id/main">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"
@@ -20,6 +21,6 @@
         android:layout_gravity="bottom"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
         app:menu="@menu/bottom_nav_menu"
-        app:itemIconSize="24dp"/>
+        app:itemIconSize="28dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

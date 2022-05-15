@@ -12,12 +12,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Название задачи:"
+        android:textStyle="bold"
+        android:text="Придумайте свое задание"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@id/taskHeaderEditText"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
     </TextView>
 
     <EditText
@@ -26,22 +27,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toTopOf="@id/taskDescTextView"
+        android:hint="Название"
+        app:layout_constraintBottom_toTopOf="@id/taskDescEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/taskHeaderTextView" />
-
-    <TextView
-        android:id="@+id/taskDescTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="Описание задачи:"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@id/taskDescEditText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/taskHeaderEditText" />
 
     <EditText
         android:id="@+id/taskDescEditText"
@@ -49,41 +39,101 @@
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toTopOf="@id/buttonsContainer"
+        android:hint="Описание"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/taskDescTextView" />
+        app:layout_constraintTop_toBottomOf="@id/taskHeaderEditText" />
+
+    <TextView
+        android:id="@+id/task_priority_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:textStyle="bold"
+        android:text="Приоритет"
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@id/taskDescEditText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+    </TextView>
+
+    <RadioGroup
+        android:id="@+id/priority_buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/task_priority_textview">
+
+        <RadioButton
+            android:id="@+id/high_priority_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_half"
+            android:layout_marginEnd="2dp"
+            android:layout_weight="1"
+            android:text="Высокий"
+            android:background="@drawable/back_red_radiobutton"
+            app:layout_constraintEnd_toStartOf="@+id/medium_priority_button"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <RadioButton
+            android:id="@+id/medium_priority_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Средний"
+            android:layout_marginEnd="2dp"
+            android:background="@drawable/back_orange_radiobutton"
+            app:layout_constraintEnd_toStartOf="@+id/addTaskButton"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <RadioButton
+            android:id="@+id/low_priority_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_half"
+            android:layout_weight="1"
+            android:text="Низкий"
+            android:background="@drawable/back_yellow_radiobutton"
+            app:layout_constraintEnd_toStartOf="@+id/addTaskButton"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </RadioGroup>
+
+
 
     <LinearLayout
         android:id="@+id/buttonsContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginBottom="64dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/taskDescEditText">
+        app:layout_constraintStart_toStartOf="parent">
 
-        <ImageButton
+        <Button
             android:id="@+id/returnButton"
             android:layout_width="match_parent"
-            style="@style/Animation.Design.BottomSheetDialog"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/margin_standart"
-            android:layout_marginEnd="@dimen/margin_half"
-            android:layout_marginBottom="128dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:text="Назад"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/addTaskButton"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/taskDescEditText" />
 
         <Button
             android:id="@+id/addTaskButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_half"
-            android:layout_marginEnd="@dimen/margin_standart"
-            android:layout_marginBottom="@dimen/margin_standart"
             android:layout_weight="1"
             android:text="Добавить задачу"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -92,6 +142,8 @@
             app:layout_constraintTop_toBottomOf="@id/taskDescEditText" />
 
     </LinearLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

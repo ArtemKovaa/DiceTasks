@@ -18,4 +18,10 @@ public class ProfileFragment extends Fragment {
         v = inflater.inflate(R.layout.main_fragment, container, false);
         return v;
     }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "ProfileFragment";
+    }
 }

@@ -19,6 +19,7 @@ import com.example.dicetasks.data.TasksDao;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -46,20 +47,19 @@ public class MainFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-        addTaskButton = view.findViewById(R.id.add_task_button);
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        addTaskButton.setOnClickListener(v -> {
+        //addTaskButton = view.findViewById(R.id.add_task_button);
+        /*addTaskButton.setOnClickListener(v -> {
             getActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment_container, NewTaskFragment.class, null)
                     .setReorderingAllowed(true)
                     .addToBackStack("name")
                     .commit();
-
-        });
+        });*/
 
 
         tasksDao.getTasks()
@@ -96,15 +96,12 @@ public class MainFragment extends Fragment {
         RecyclerView recyclerView = v.findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getParent());
         recyclerView.setLayoutManager(layoutManager);
-        ArrayList<Task> tasks = new ArrayList<Task>();
-        tasks.add(new Task("title","description",1));
-        tasks.add(new Task("title","description",1));
-        tasks.add(new Task("title","description",1));
-        tasks.add(new Task("title","description",1));
-        tasks.add(new Task("title","description",1));
-        tasks.add(new Task("title","description",1));
-        taskAdapter = new TaskAdapter(tasks);
-        recyclerView.setAdapter(taskAdapter);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "MainFragment";
     }
 
 }
