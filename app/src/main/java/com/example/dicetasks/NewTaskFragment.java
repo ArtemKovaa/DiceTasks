@@ -2,18 +2,22 @@ package com.example.dicetasks;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -29,8 +33,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class NewTaskFragment extends Fragment {
 
-    Button returnButton;
-    Button addTaskButton;
+    ImageButton returnButton;
+    ImageButton addTaskButton;
     EditText taskHeaderView;
     EditText taskDescriptionView;
     RadioButton highPriorityButton;
@@ -95,14 +99,40 @@ public class NewTaskFragment extends Fragment {
         });
 
         highPriorityButton.setOnClickListener(v -> {
+            highPriorityButton.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.high_priority_outline));
+            highPriorityButton.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
+
+            mediumPriorityButton.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.default_outline));
+            mediumPriorityButton.setTextColor(ContextCompat.getColor(getContext(), R.color.grey));
+
+            lowPriorityButton.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.default_outline));
+            lowPriorityButton.setTextColor(ContextCompat.getColor(getContext(), R.color.grey));
             taskPriority = 2;
         });
 
         mediumPriorityButton.setOnClickListener(v -> {
+            highPriorityButton.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.default_outline));
+            highPriorityButton.setTextColor(ContextCompat.getColor(getContext(), R.color.grey));
+
+            mediumPriorityButton.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.medium_priority_outline));
+            mediumPriorityButton.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
+
+            lowPriorityButton.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.default_outline));
+            lowPriorityButton.setTextColor(ContextCompat.getColor(getContext(), R.color.grey));
+
             taskPriority = 1;
         });
 
         lowPriorityButton.setOnClickListener(v -> {
+            highPriorityButton.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.default_outline));
+            highPriorityButton.setTextColor(ContextCompat.getColor(getContext(), R.color.grey));
+
+            mediumPriorityButton.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.default_outline));
+            mediumPriorityButton.setTextColor(ContextCompat.getColor(getContext(), R.color.grey));
+
+            lowPriorityButton.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.low_priority_outline));
+            lowPriorityButton.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
+
             taskPriority = 0;
         });
 
