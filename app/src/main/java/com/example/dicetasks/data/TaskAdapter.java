@@ -15,7 +15,11 @@ import com.example.dicetasks.MainActivity;
 import com.example.dicetasks.MainFragment;
 import com.example.dicetasks.R;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 

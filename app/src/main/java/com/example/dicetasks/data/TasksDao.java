@@ -17,6 +17,6 @@ public interface TasksDao {
     @Query("SELECT * FROM tasks WHERE id=:id")
     Observable<Task> getById(int id);
 
-    @Query("SELECT * FROM tasks")
+    @Query("SELECT * FROM tasks ORDER BY taskPriority DESC")
     Observable<List<Task>> getTasks();
 }
