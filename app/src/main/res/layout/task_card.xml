@@ -14,7 +14,7 @@
         android:minHeight="100dp"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
-        app:cardBackgroundColor="@color/peach"
+        app:cardBackgroundColor="@color/light_blue"
         android:paddingBottom="16dp"
         android:layout_height="wrap_content"
         app:cardUseCompatPadding="true"

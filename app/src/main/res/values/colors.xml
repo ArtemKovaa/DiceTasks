@@ -10,10 +10,13 @@
     <color name="grey">#8A000000</color>
     <color name="red">#FF0000</color>
     <color name="peach">#FFE0B2</color>
-    <color name="orange">#DD8C15</color>
+    <color name="orange">#FF9800</color>
     <color name="dark_orange">#D57F00</color>
     <color name="yellow">#EEFF00</color>
     <color name="purple">#BC20FF</color>
-    <color name="green">#BFF87D</color>
-
+    <color name="light_green">#C4F68A</color>
+    <color name="green">#4CAF50</color>
+    <color name="dark_green">#285E2A</color>
+    <color name="blue">#2196F3</color>
+    <color name="light_blue">#D7F4FD</color>
 </resources>

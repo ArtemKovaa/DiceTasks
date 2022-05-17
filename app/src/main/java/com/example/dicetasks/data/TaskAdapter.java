@@ -61,13 +61,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
         switch(task.getTaskPriority()) {
             case 0:
-                holder.priority.setBackgroundColor(ContextCompat.getColor(holder.title.getContext(), R.color.yellow));
+                holder.priority.setBackgroundColor(ContextCompat.getColor(holder.title.getContext(), R.color.light_green));
                 break;
             case 1:
-                holder.priority.setBackgroundColor(ContextCompat.getColor(holder.title.getContext(), R.color.orange));
+                holder.priority.setBackgroundColor(ContextCompat.getColor(holder.title.getContext(), R.color.green));
                 break;
             case 2:
-                holder.priority.setBackgroundColor(ContextCompat.getColor(holder.title.getContext(), R.color.red));
+                holder.priority.setBackgroundColor(ContextCompat.getColor(holder.title.getContext(), R.color.dark_green));
                 break;
             case 3:
                 holder.priority.setBackgroundColor(ContextCompat.getColor(holder.title.getContext(), R.color.purple));
