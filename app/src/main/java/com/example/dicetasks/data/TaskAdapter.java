@@ -49,8 +49,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Task task = data.get(position);
-        Log.e("onBindViewHolder", "Title: " + task.getTaskTitle()+ " Desc: " +
-                task.getTaskDescription() + " Visabilbity" + task.getVisibility());
+        /*Log.e("onBindViewHolder", "Title: " + task.getTaskTitle()+ " Desc: " +
+                task.getTaskDescription() + " Visabilbity" + task.getVisibility());*/
         if(task.getVisibility() == 0) {
             holder.itemView.setVisibility(View.GONE);
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));

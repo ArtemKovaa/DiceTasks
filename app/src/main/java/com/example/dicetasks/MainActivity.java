@@ -1,14 +1,18 @@
 package com.example.dicetasks;
 
 import androidx.annotation.NonNull;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 import android.widget.Toast;
@@ -17,11 +21,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends FragmentActivity {
 
-    public RecyclerView list;
-
-    // TODO: remove currentFragment from code for outdated
-    public Fragment currentFragment = null;
-
+    PopupWindow popupWindow;
+    CoordinatorLayout parent;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -31,18 +32,16 @@ public class MainActivity extends FragmentActivity {
             Fragment selectedFragment = null;
             switch (item.getItemId()) {
                 case R.id.navigation_add:
-                //    if(currentFragment != null && currentFragment.toString().equals("MainFragment")){
                     if(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
                             instanceof MainFragment) {
-                        //View view = findViewById(R.id.main);
-                        //showPopupMenu(view);
-                        //return true;
+                        showPopup();
 
-                        selectedFragment = new NewTaskFragment();
-
+                        //old code
+                        //selectedFragment = new NewTaskFragment();
+                        /*
                         //making the nav bar go invisible before going to NewTaskFragment
                         View navView = findViewById(R.id.nav_view);
-                        navView.setVisibility(View.GONE);
+                        navView.setVisibility(View.GONE);*/
                     }
                     else {
                         selectedFragment = new MainFragment();
@@ -55,9 +54,10 @@ public class MainActivity extends FragmentActivity {
                     selectedFragment = new ProfileFragment();
                     break;
             }
-            currentFragment = selectedFragment;
 
-            assert selectedFragment != null;
+            //assert selectedFragment != null;
+            if (selectedFragment == null)
+                return false;
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment_container, selectedFragment)
@@ -68,7 +68,41 @@ public class MainActivity extends FragmentActivity {
         }
     };
 
-    // TODO: replace PopupMenu with PopupWindow
+    private void showPopup () {
+        View view = LayoutInflater.from(getBaseContext())
+                .inflate(R.layout.task_choice_popup_window, null, false);
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+
+
+
+        PopupWindow popupWindow = new PopupWindow(view,width,height,false);
+        popupWindow.showAtLocation(parent, Gravity.CENTER, 0, 0);
+
+        Button addRandom = view.findViewById(R.id.add_random);
+        Button createNew = view.findViewById(R.id.create_new);
+
+        // TODO: logic for random task
+        /*addRandom.setOnClickListener(v -> {
+
+        });*/
+
+        createNew.setOnClickListener(v -> {
+            popupWindow.dismiss();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, new NewTaskFragment())
+                    .setReorderingAllowed(true)
+                    .addToBackStack("name")
+                    .commit();
+            View navView = findViewById(R.id.nav_view);
+            navView.setVisibility(View.GONE);
+        });
+
+
+    }
+
+   /* // TODO: replace PopupMenu with PopupWindow
     private void showPopupMenu(View v) {
         PopupMenu popupMenu = new PopupMenu(this,v);
         popupMenu.inflate(R.menu.popup_menu);
@@ -104,14 +138,14 @@ public class MainActivity extends FragmentActivity {
         });
 
         popupMenu.show();
-    }
-
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        parent = findViewById(R.id.main);
         BottomNavigationView navigation = findViewById(R.id.nav_view);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         /*getSupportFragmentManager()
