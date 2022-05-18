@@ -84,7 +84,7 @@ public class MainActivity extends FragmentActivity {
 
 
         PopupWindow popupWindow = new PopupWindow(view,width,height,false);
-        popupWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
+        popupWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 260);
 
 
         Button addRandom = view.findViewById(R.id.add_random);
@@ -111,6 +111,7 @@ public class MainActivity extends FragmentActivity {
                     .setReorderingAllowed(true)
                     .addToBackStack("name")
                     .commit();
+            findViewById(R.id.toolbar).setVisibility(View.GONE);
             View navView = findViewById(R.id.nav_view);
             navView.setVisibility(View.GONE);
         });
