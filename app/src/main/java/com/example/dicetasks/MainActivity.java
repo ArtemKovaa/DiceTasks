@@ -15,9 +15,16 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
+import com.example.dicetasks.data.Task;
+import com.example.dicetasks.data.TasksDB;
+import com.example.dicetasks.data.TasksDao;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import io.reactivex.disposables.Disposable;
 
 public class MainActivity extends FragmentActivity {
 
@@ -77,15 +84,24 @@ public class MainActivity extends FragmentActivity {
 
 
         PopupWindow popupWindow = new PopupWindow(view,width,height,false);
-        popupWindow.showAtLocation(parent, Gravity.CENTER, 0, 0);
+        popupWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
+
 
         Button addRandom = view.findViewById(R.id.add_random);
         Button createNew = view.findViewById(R.id.create_new);
 
         // TODO: logic for random task
-        /*addRandom.setOnClickListener(v -> {
-
-        });*/
+        addRandom.setOnClickListener(v -> {
+            popupWindow.dismiss();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, new NewTaskFragment())
+                    .setReorderingAllowed(true)
+                    .addToBackStack("name")
+                    .commit();
+            View navView = findViewById(R.id.nav_view);
+            navView.setVisibility(View.GONE);
+        });
 
         createNew.setOnClickListener(v -> {
             popupWindow.dismiss();

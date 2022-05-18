@@ -1,10 +1,10 @@
 package com.example.dicetasks;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,8 +18,6 @@ import com.example.dicetasks.data.TasksDB;
 import com.example.dicetasks.data.TasksDao;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -41,6 +39,10 @@ public class MainFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.main_fragment, container, false);
 
+        getActivity().findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
+        TextView textView = getActivity().findViewById(R.id.active_tasks_text);
+        textView.setText("Активные задания");
+
         TasksDB tasksDB = TasksDB.getInstance(getActivity());
         TasksDao tasksDao = tasksDB.tasksDao();
 
@@ -60,7 +62,6 @@ public class MainFragment extends Fragment {
                     .addToBackStack("name")
                     .commit();
         });*/
-
 
         tasksDao.getTasks()
                 .subscribeOn(Schedulers.io())
