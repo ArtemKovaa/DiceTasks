@@ -121,13 +121,14 @@ public class MainActivity extends FragmentActivity {
             navView.setVisibility(View.GONE);
         });
 
-        View overallView = findViewById(R.id.main);
+        //This code should cancel the popup menu
+        /*View overallView = findViewById(R.id.main);
         overallView.setOnClickListener(v -> {
             popupWindow.dismiss();
             popupWindow = null;
             Toast.makeText(this,"I should disappear",Toast.LENGTH_SHORT).show();
             overallView.setOnClickListener(null);
-        });
+        });*/
     }
 
    /* // TODO: replace PopupMenu with PopupWindow
