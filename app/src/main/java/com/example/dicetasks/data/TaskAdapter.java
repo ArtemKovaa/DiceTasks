@@ -3,6 +3,7 @@ package com.example.dicetasks.data;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,9 +43,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Task task = data.get(position);
-        RadioButton radioButton = holder.radioButton;
+        ImageButton imageButton = holder.imageButton;
 
-        radioButton.setOnClickListener(v-> {
+        imageButton.setOnClickListener(v-> {
             TasksDB tasksDB = TasksDB.getInstance(holder.itemView.getContext());
             TasksDao tasksDao = tasksDB.tasksDao();
 
@@ -92,14 +93,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         private final TextView title;
         private final TextView description;
         private final View priority;
-        private final RadioButton radioButton;
+        private final ImageButton imageButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.cardTaskTitle);
             description = itemView.findViewById(R.id.cardTaskDescription);
             priority = itemView.findViewById(R.id.priority_line);
-            radioButton = itemView.findViewById(R.id.delete_task_button);
+            imageButton = itemView.findViewById(R.id.complete_task_button);
 
 
         }
