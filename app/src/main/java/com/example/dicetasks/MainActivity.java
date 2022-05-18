@@ -1,6 +1,7 @@
 package com.example.dicetasks;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -30,6 +31,9 @@ public class MainActivity extends FragmentActivity {
 
     PopupWindow popupWindow;
     CoordinatorLayout parent;
+    BottomNavigationView navigation;
+    View addBut;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -41,7 +45,8 @@ public class MainActivity extends FragmentActivity {
                 case R.id.navigation_add:
                     if(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
                             instanceof MainFragment) {
-                        showPopup();
+                        if(popupWindow == null)
+                            showPopup();
 
                         //old code
                         //selectedFragment = new NewTaskFragment();
@@ -81,17 +86,16 @@ public class MainActivity extends FragmentActivity {
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
 
-
-
-        PopupWindow popupWindow = new PopupWindow(view,width,height,false);
-        popupWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
+        popupWindow = new PopupWindow(view,width,height,false);
+        popupWindow.showAtLocation(parent, Gravity.TOP, 0, (int)navigation.getY() - (int)popupWindow.getHeight()*2);
+        //popupWindow.showAsDropDown(addBut,0,0, Gravity.CENTER);
 
 
         Button addRandom = view.findViewById(R.id.add_random);
         Button createNew = view.findViewById(R.id.create_new);
 
         // TODO: logic for random task
-        addRandom.setOnClickListener(v -> {
+        /*addRandom.setOnClickListener(v -> {
             popupWindow.dismiss();
             getSupportFragmentManager()
                     .beginTransaction()
@@ -101,10 +105,11 @@ public class MainActivity extends FragmentActivity {
                     .commit();
             View navView = findViewById(R.id.nav_view);
             navView.setVisibility(View.GONE);
-        });
+        });*/
 
         createNew.setOnClickListener(v -> {
             popupWindow.dismiss();
+            popupWindow = null;
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment_container, new NewTaskFragment())
@@ -116,7 +121,13 @@ public class MainActivity extends FragmentActivity {
             navView.setVisibility(View.GONE);
         });
 
-
+        View overallView = findViewById(R.id.main);
+        overallView.setOnClickListener(v -> {
+            popupWindow.dismiss();
+            popupWindow = null;
+            Toast.makeText(this,"I should disappear",Toast.LENGTH_SHORT).show();
+            overallView.setOnClickListener(null);
+        });
     }
 
    /* // TODO: replace PopupMenu with PopupWindow
@@ -163,7 +174,7 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
 
         parent = findViewById(R.id.main);
-        BottomNavigationView navigation = findViewById(R.id.nav_view);
+        navigation = findViewById(R.id.nav_view);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         /*getSupportFragmentManager()
                 .beginTransaction()
@@ -172,6 +183,7 @@ public class MainActivity extends FragmentActivity {
 
         //Summoning the main activity
         navigation.setSelectedItemId(R.id.navigation_add);
+        addBut = findViewById(R.id.navigation_add);
     }
 
 }

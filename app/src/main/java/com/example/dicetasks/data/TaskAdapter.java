@@ -1,9 +1,9 @@
 package com.example.dicetasks.data;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,15 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.dicetasks.MainActivity;
-import com.example.dicetasks.MainFragment;
 import com.example.dicetasks.R;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.function.Function;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
@@ -38,7 +32,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         view.setOnClickListener(v -> {
             Toast toast = Toast.makeText(v.getContext(), "Hello",Toast.LENGTH_LONG);
             toast.show();
-
         });
         return new ViewHolder(view);
         /*return new ViewHolder(LayoutInflater
@@ -49,6 +42,20 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Task task = data.get(position);
+        RadioButton radioButton = holder.radioButton;
+
+        radioButton.setOnClickListener(v-> {
+            TasksDB tasksDB = TasksDB.getInstance(holder.itemView.getContext());
+            TasksDao tasksDao = tasksDB.tasksDao();
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    tasksDao.deleteById(task.getId());
+                }
+            }).start();
+        });
+
         /*Log.e("onBindViewHolder", "Title: " + task.getTaskTitle()+ " Desc: " +
                 task.getTaskDescription() + " Visabilbity" + task.getVisibility());*/
         if(task.getVisibility() == 0) {
@@ -85,12 +92,17 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         private final TextView title;
         private final TextView description;
         private final View priority;
+        private final RadioButton radioButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.cardTaskTitle);
             description = itemView.findViewById(R.id.cardTaskDescription);
             priority = itemView.findViewById(R.id.priority_line);
+            radioButton = itemView.findViewById(R.id.delete_task_button);
+
+
         }
+
     }
 }

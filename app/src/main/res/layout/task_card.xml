@@ -21,8 +21,8 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
-            <CheckBox
-                android:id="@+id/checkBoxComplete"
+            <RadioButton
+                android:id="@+id/delete_task_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="26sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/checkBoxComplete"
+                app:layout_constraintStart_toEndOf="@+id/delete_task_button"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/cardTaskDescription"
                 android:layout_marginStart="8dp"/>
@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@+id/checkBoxComplete"
+                app:layout_constraintStart_toEndOf="@+id/delete_task_button"
                 app:layout_constraintTop_toBottomOf="@+id/cardTaskTitle"
                 android:layout_marginStart="8dp"/>
 

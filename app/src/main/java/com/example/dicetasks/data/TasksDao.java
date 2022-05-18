@@ -22,4 +22,7 @@ public interface TasksDao {
 
     @Query("SELECT id, taskTitle, taskDescription, taskCategory, taskPriority, visibility FROM tasks WHERE taskPriority=:taskPriority")
     Observable<List<Task>> getRandomTask(int taskPriority);
+
+    @Query("DELETE FROM tasks WHERE id = :id")
+    void deleteById(long id);
 }

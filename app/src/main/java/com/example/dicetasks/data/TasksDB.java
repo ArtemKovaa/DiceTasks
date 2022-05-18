@@ -33,6 +33,7 @@ public abstract class TasksDB extends RoomDatabase {
         return instance;
     }
 
+
     private static void fillDB(@NonNull SupportSQLiteDatabase db) {
         db.execSQL("INSERT INTO tasks (taskTitle, taskDescription, taskCategory, taskPriority, visibility) " +
                 "VALUES('Первый раз', 'Создайте свое задание', 1, 3, 1)");
