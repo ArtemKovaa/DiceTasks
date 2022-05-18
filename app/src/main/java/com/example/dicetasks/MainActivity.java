@@ -84,7 +84,7 @@ public class MainActivity extends FragmentActivity {
 
 
         PopupWindow popupWindow = new PopupWindow(view,width,height,false);
-        popupWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 260);
+        popupWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
 
 
         Button addRandom = view.findViewById(R.id.add_random);
