@@ -24,6 +24,7 @@
             android:id="@+id/card_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="28dp"
             android:padding="16dp">
 
             <TextView
@@ -31,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:textSize="24sp"
+                android:textSize="26sp"
                 android:textStyle="bold"
                 android:layout_marginStart="6dp"/>
 
@@ -45,6 +46,13 @@
                 android:layout_marginStart="6dp"/>
 
         </RelativeLayout>
+
+        <CheckBox
+            android:id="@+id/checkBoxComplete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="152dp"
+            android:layout_gravity="center"/>
 
         <View
             android:id="@+id/priority_line"
