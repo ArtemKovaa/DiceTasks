@@ -36,7 +36,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.task_card, parent, false);
         view.setOnClickListener(v -> {
-            Toast toast = Toast.makeText(v.getContext(), "Hello",Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(v.getContext(), "Вы нажали на карточку. Зачем?",Toast.LENGTH_LONG);
             toast.show();
         });
         return new ViewHolder(view);
@@ -57,7 +57,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             TasksDB tasksDB = TasksDB.getInstance(holder.itemView.getContext());
             TasksDao tasksDao = tasksDB.tasksDao();
 
-            int countOfRandom = 0;
+            /*int countOfRandom = 0;
 
             for(Task elem: data){
                 if(elem.getTaskPriority() == 3 && elem.getVisibility() != 0)
@@ -83,7 +83,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                         break;
                     }
                 }
-            }
+            }*/
 
             new Thread(new Runnable() {
                 @Override

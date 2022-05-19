@@ -1,30 +1,32 @@
 package com.example.dicetasks;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.example.dicetasks.data.Task;
 import com.example.dicetasks.data.TasksDB;
 import com.example.dicetasks.data.TasksDao;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.List;
+import java.util.Random;
+
+import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 
 public class MainActivity extends FragmentActivity {
@@ -95,17 +97,43 @@ public class MainActivity extends FragmentActivity {
         Button createNew = view.findViewById(R.id.create_new);
 
         // TODO: logic for random task
-        /*addRandom.setOnClickListener(v -> {
+        addRandom.setOnClickListener(v -> {
             popupWindow.dismiss();
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, new NewTaskFragment())
-                    .setReorderingAllowed(true)
-                    .addToBackStack("name")
-                    .commit();
-            View navView = findViewById(R.id.nav_view);
-            navView.setVisibility(View.GONE);
-        });*/
+            popupWindow = null;
+
+            TasksDB tasksDB = TasksDB.getInstance(getBaseContext());
+            TasksDao tasksDao = tasksDB.tasksDao();
+
+            Observable<List<Task>> list = tasksDao.getTasks();
+
+            Disposable disposable;
+
+            Random random = new Random();
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    if (tasksDao.countRands() < 3) {
+                        tasksDao.setVisibilityByID(random.nextInt() % 6 + 1, 1);
+                    } else {
+                        Handler handler = new Handler(Looper.getMainLooper());
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast toast = Toast.makeText(getBaseContext(),
+                                        "Случайных заданий не может быть больше" +
+                                        " 3", Toast.LENGTH_SHORT);
+                                ((TextView)((LinearLayout)toast.getView()).getChildAt(0))
+                                        .setGravity(Gravity.CENTER_HORIZONTAL);
+                                toast.show();
+                            }
+                        });
+                    }
+                }
+            }).start();
+
+
+        });
 
         createNew.setOnClickListener(v -> {
             popupWindow.dismiss();

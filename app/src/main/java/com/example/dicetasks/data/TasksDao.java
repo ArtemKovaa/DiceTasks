@@ -34,4 +34,16 @@ public interface TasksDao {
 
     @Query("DELETE FROM completed_tasks WHERE id = :id")
     void deleteCompletedById(long id);
+
+    //Thing that gets tasks in db
+    @Query("SELECT COUNT(*) FROM tasks WHERE taskPriority = 3 AND visibility != 0")
+    int countRands();
+
+    @Query("UPDATE tasks SET visibility = :visibility WHERE id= :id")
+    void setVisibilityByID(int id, int visibility);
+
+    @Query("SELECT id FROM tasks WHERE taskCategory = :category AND visibility = 0")
+    int getFirstInvisibleByCategory(int category);
+
+
 }
