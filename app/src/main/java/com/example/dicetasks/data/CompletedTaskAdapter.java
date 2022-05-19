@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.dicetasks.R;
 
 import java.util.List;
+import java.util.Stack;
 
 public class CompletedTaskAdapter extends RecyclerView.Adapter<CompletedTaskAdapter.ViewHolder> {
 
@@ -28,15 +29,12 @@ public class CompletedTaskAdapter extends RecyclerView.Adapter<CompletedTaskAdap
     @Override
     public CompletedTaskAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.task_card, parent, false);
+                .inflate(R.layout.completed_task_card, parent, false);
         view.setOnClickListener(v -> {
             Toast toast = Toast.makeText(v.getContext(), "Hello",Toast.LENGTH_LONG);
             toast.show();
         });
         return new CompletedTaskAdapter.ViewHolder(view);
-        /*return new ViewHolder(LayoutInflater
-                .from(parent.getContext())
-                .inflate(R.layout.task_card, parent, false));*/
     }
 
 
@@ -48,20 +46,19 @@ public class CompletedTaskAdapter extends RecyclerView.Adapter<CompletedTaskAdap
         holder.description.setText(completedTask.getCompletedTaskDescription());
         holder.cardView.setAlpha(0.6f);
 
-        switch(completedTask.getCompletedTaskPriority()) {
-            case 0:
-                holder.priority.setBackgroundColor(ContextCompat.getColor(holder.title.getContext(), R.color.light_green));
-                break;
-            case 1:
-                holder.priority.setBackgroundColor(ContextCompat.getColor(holder.title.getContext(), R.color.green));
-                break;
-            case 2:
-                holder.priority.setBackgroundColor(ContextCompat.getColor(holder.title.getContext(), R.color.dark_green));
-                break;
-            case 3:
-                holder.priority.setBackgroundColor(ContextCompat.getColor(holder.title.getContext(), R.color.purple));
-                break;
-        }
+        ImageButton imageButton = holder.imageButton;
+
+        imageButton.setOnClickListener(v-> {
+            TasksDB tasksDB = TasksDB.getInstance(holder.itemView.getContext());
+            TasksDao tasksDao = tasksDB.tasksDao();
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    tasksDao.deleteCompletedById(completedTask.getId());
+                }
+            }).start();
+        });
     }
 
     @Override
@@ -73,17 +70,15 @@ public class CompletedTaskAdapter extends RecyclerView.Adapter<CompletedTaskAdap
 
         private final TextView title;
         private final TextView description;
-        private final View priority;
         private final ImageButton imageButton;
         private final CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.cardTaskTitle);
-            description = itemView.findViewById(R.id.cardTaskDescription);
-            priority = itemView.findViewById(R.id.priority_line);
-            imageButton = itemView.findViewById(R.id.complete_task_button);
-            cardView = itemView.findViewById(R.id.cv);
+            title = itemView.findViewById(R.id.completed_card_task_title);
+            description = itemView.findViewById(R.id.completed_card_task_description);
+            imageButton = itemView.findViewById(R.id.delete_task_button);
+            cardView = itemView.findViewById(R.id.completed_cv);
         }
 
     }

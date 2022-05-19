@@ -23,6 +23,10 @@ public class CompletedTask {
         this.visibility = visibility;
     }
 
+    public long getId() {
+        return id;
+    }
+
     public String getCompletedTaskTitle() {
         return completedTaskTitle;
     }

@@ -82,7 +82,7 @@ public class ProfileFragment extends Fragment {
     public void initRecyclerView(View v) {
         RecyclerView recyclerView = v.findViewById(R.id.recycler_view_profile);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getParent());
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,true));
     }
 
     @NonNull
