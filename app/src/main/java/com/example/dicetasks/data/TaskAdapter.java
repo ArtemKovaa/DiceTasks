@@ -57,13 +57,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             TasksDB tasksDB = TasksDB.getInstance(holder.itemView.getContext());
             TasksDao tasksDao = tasksDB.tasksDao();
 
-            int count = 0;
+            int countOfRandom = 0;
 
             for(Task elem: data){
                 if(elem.getTaskPriority() == 3 && elem.getVisibility() != 0)
-                    count++;
+                    countOfRandom++;
             }
-            if(count == 3)
+            if(countOfRandom == 3)
             {
                 for(Task elem: data){
                     if(elem.getTaskPriority() == 3 && elem.getVisibility() == 0) {
