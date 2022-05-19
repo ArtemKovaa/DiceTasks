@@ -86,7 +86,7 @@ public class MainActivity extends FragmentActivity {
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
 
-        popupWindow = new PopupWindow(view,width,height,false);
+        popupWindow = new PopupWindow(view,width,height,true);
         popupWindow.showAtLocation(parent, Gravity.TOP, 0, (int)navigation.getY() - (int)popupWindow.getHeight()*2);
         //popupWindow.showAsDropDown(addBut,0,0, Gravity.CENTER);
 
