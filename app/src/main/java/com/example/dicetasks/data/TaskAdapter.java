@@ -16,6 +16,9 @@ import com.example.dicetasks.R;
 
 import java.util.List;
 
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     private List<Task> data;
@@ -23,6 +26,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     public TaskAdapter(final List<Task> data) {
         this.data = data;
     }
+
+    Disposable disposable;
 
 
     @NonNull
@@ -52,10 +57,39 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             TasksDB tasksDB = TasksDB.getInstance(holder.itemView.getContext());
             TasksDao tasksDao = tasksDB.tasksDao();
 
+            int count = 0;
+
+            for(Task elem: data){
+                if(elem.getTaskPriority() == 3 && elem.getVisibility() != 0)
+                    count++;
+            }
+            if(count == 3)
+            {
+                for(Task elem: data){
+                    if(elem.getTaskPriority() == 3 && elem.getVisibility() == 0) {
+                        Task toVisible = elem;
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tasksDao.deleteById(elem.getId());
+                            }
+                        }).start();
+
+                        toVisible.setVisibility(1);
+                        disposable = tasksDao.insert(toVisible)
+                                .subscribeOn(Schedulers.io()).subscribe();
+
+                        //THE WORST PART OF OUR PROJECT TODO : remove break
+                        break;
+                    }
+                }
+            }
+
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    tasksDao.insertCompleted(completedTask);
+                    disposable = tasksDao.insertCompleted(completedTask)
+                            .subscribeOn(Schedulers.io()).subscribe();
                 }
             }).start();
 

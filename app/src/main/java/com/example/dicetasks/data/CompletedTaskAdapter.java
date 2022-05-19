@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,6 +46,7 @@ public class CompletedTaskAdapter extends RecyclerView.Adapter<CompletedTaskAdap
 
         holder.title.setText(completedTask.getCompletedTaskTitle());
         holder.description.setText(completedTask.getCompletedTaskDescription());
+        holder.cardView.setAlpha(0.6f);
 
         switch(completedTask.getCompletedTaskPriority()) {
             case 0:
@@ -73,6 +75,7 @@ public class CompletedTaskAdapter extends RecyclerView.Adapter<CompletedTaskAdap
         private final TextView description;
         private final View priority;
         private final ImageButton imageButton;
+        private final CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -80,6 +83,7 @@ public class CompletedTaskAdapter extends RecyclerView.Adapter<CompletedTaskAdap
             description = itemView.findViewById(R.id.cardTaskDescription);
             priority = itemView.findViewById(R.id.priority_line);
             imageButton = itemView.findViewById(R.id.complete_task_button);
+            cardView = itemView.findViewById(R.id.cv);
         }
 
     }

@@ -45,6 +45,8 @@ public abstract class TasksDB extends RoomDatabase {
                 "VALUES('\uD83C\uDD71edolaga', 'Сделайте домашнее задание', 4, 3, 1)");
         db.execSQL("INSERT INTO tasks (taskTitle, taskDescription, taskCategory, taskPriority, visibility) " +
                 "VALUES('Псих', 'Сдай сессию на отлично', 5, 3, 1)");
+        db.execSQL("INSERT INTO tasks (taskTitle, taskDescription, taskCategory, taskPriority, visibility) " +
+                "VALUES('Дед инсайд', 'Поиграй в доту', 5, 3, 0)");
     }
 
 }
