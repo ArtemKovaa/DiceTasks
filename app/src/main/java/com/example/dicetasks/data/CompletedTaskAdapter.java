@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,68 +15,38 @@ import com.example.dicetasks.R;
 
 import java.util.List;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
+public class CompletedTaskAdapter extends RecyclerView.Adapter<CompletedTaskAdapter.ViewHolder> {
 
-    private List<Task> data;
+    private List<CompletedTask> data;
 
-    public TaskAdapter(final List<Task> data) {
+    public CompletedTaskAdapter(final List<CompletedTask> data) {
         this.data = data;
     }
 
-
     @NonNull
     @Override
-    public TaskAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CompletedTaskAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.task_card, parent, false);
         view.setOnClickListener(v -> {
             Toast toast = Toast.makeText(v.getContext(), "Hello",Toast.LENGTH_LONG);
             toast.show();
         });
-        return new ViewHolder(view);
+        return new CompletedTaskAdapter.ViewHolder(view);
         /*return new ViewHolder(LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.task_card, parent, false));*/
     }
 
+
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Task task = data.get(position);
-        CompletedTask completedTask =
-                new CompletedTask(task.getTaskTitle(), task.getTaskDescription(),
-                        task.getTaskCategory(), task.getTaskPriority(), task.getVisibility());
-        ImageButton imageButton = holder.imageButton;
+    public void onBindViewHolder(@NonNull CompletedTaskAdapter.ViewHolder holder, int position) {
+        CompletedTask completedTask = data.get(position);
 
-        imageButton.setOnClickListener(v-> {
-            TasksDB tasksDB = TasksDB.getInstance(holder.itemView.getContext());
-            TasksDao tasksDao = tasksDB.tasksDao();
+        holder.title.setText(completedTask.getCompletedTaskTitle());
+        holder.description.setText(completedTask.getCompletedTaskDescription());
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    tasksDao.insertCompleted(completedTask);
-                }
-            }).start();
-
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    tasksDao.deleteById(task.getId());
-                }
-            }).start();
-        });
-
-        /*Log.e("onBindViewHolder", "Title: " + task.getTaskTitle()+ " Desc: " +
-                task.getTaskDescription() + " Visabilbity" + task.getVisibility());*/
-        if(task.getVisibility() == 0) {
-            holder.itemView.setVisibility(View.GONE);
-            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
-            return;
-        }
-        holder.title.setText(task.getTaskTitle());
-        holder.description.setText(task.getTaskDescription());
-
-        switch(task.getTaskPriority()) {
+        switch(completedTask.getCompletedTaskPriority()) {
             case 0:
                 holder.priority.setBackgroundColor(ContextCompat.getColor(holder.title.getContext(), R.color.light_green));
                 break;
@@ -111,8 +80,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             description = itemView.findViewById(R.id.cardTaskDescription);
             priority = itemView.findViewById(R.id.priority_line);
             imageButton = itemView.findViewById(R.id.complete_task_button);
-
-
         }
 
     }

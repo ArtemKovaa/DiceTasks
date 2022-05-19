@@ -45,7 +45,7 @@ public class MainActivity extends FragmentActivity {
                 case R.id.navigation_add:
                     if(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
                             instanceof MainFragment) {
-                        if(popupWindow == null)
+                        if(popupWindow == null || !popupWindow.isShowing())
                             showPopup();
 
                         //old code
@@ -82,7 +82,7 @@ public class MainActivity extends FragmentActivity {
 
     private void showPopup () {
         View view = LayoutInflater.from(getBaseContext())
-                .inflate(R.layout.task_choice_popup_window, null, false);
+                .inflate(R.layout.task_choice_popup_window, null, true);
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
 

@@ -12,7 +12,7 @@ public class Task {
     private String taskDescription;
     private int taskCategory;
     private int taskPriority;
-        private int visibility;
+    private int visibility;
 
     public Task(String taskTitle, String taskDescription, int taskCategory, int taskPriority, int visibility) {
         this.taskTitle = taskTitle;

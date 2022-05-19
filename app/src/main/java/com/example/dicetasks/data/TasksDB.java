@@ -8,7 +8,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Task.class}, version = 1)
+@Database(entities = {Task.class, CompletedTask.class}, version = 1)
 public abstract class TasksDB extends RoomDatabase {
 
     private static TasksDB instance;
