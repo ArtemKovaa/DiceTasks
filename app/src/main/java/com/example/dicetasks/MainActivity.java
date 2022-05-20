@@ -5,6 +5,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -22,6 +23,8 @@ import com.example.dicetasks.data.Task;
 import com.example.dicetasks.data.TasksDB;
 import com.example.dicetasks.data.TasksDao;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 import java.util.Random;
@@ -35,7 +38,7 @@ public class MainActivity extends FragmentActivity {
     CoordinatorLayout parent;
     BottomNavigationView navigation;
     View addBut;
-
+    private FirebaseAuth mAuth;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -122,7 +125,7 @@ public class MainActivity extends FragmentActivity {
                             public void run() {
                                 Toast toast = Toast.makeText(getBaseContext(),
                                         "Случайных заданий не может быть больше" +
-                                        " 3", Toast.LENGTH_SHORT);
+                                                " 3", Toast.LENGTH_SHORT);
                                 ((TextView)((LinearLayout)toast.getView()).getChildAt(0))
                                         .setGravity(Gravity.CENTER_HORIZONTAL);
                                 toast.show();
@@ -202,6 +205,8 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mAuth = FirebaseAuth.getInstance();
+
         parent = findViewById(R.id.main);
         navigation = findViewById(R.id.nav_view);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -215,4 +220,12 @@ public class MainActivity extends FragmentActivity {
         addBut = findViewById(R.id.navigation_add);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user == null) {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        }
+    }
 }
