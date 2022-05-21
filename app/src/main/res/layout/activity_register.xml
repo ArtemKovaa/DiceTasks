@@ -10,11 +10,11 @@
 
     <ImageView
         android:id="@+id/image_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
-        android:src="@drawable/ic_firebase"
+        android:src="@drawable/ic_dice_tasks"
         />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Register"
+            android:text="Регистрация"
             android:textSize="30sp"
             android:textStyle="bold"
             android:gravity="center_horizontal"
@@ -41,7 +41,7 @@
                 android:id="@+id/et_register_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
+                android:hint="Электронная почта"
                 android:inputType="textEmailAddress"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -54,7 +54,7 @@
                 android:id="@+id/et_register_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
+                android:hint="Пароль"
                 android:inputType="textPassword"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -64,31 +64,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Register"/>
+            android:text="Зарегистрироваться"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Уже зарегистрированы"
-                android:textSize="16sp"/>
-
-            <TextView
+                android:layout_gravity="center"
                 android:id="@+id/tv_login_here"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Авторизация"
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:text="Вернуться к авторизации"
                 android:textStyle="bold"
-                android:textSize="20sp"/>
-
-        </LinearLayout>
+                android:textSize="16sp"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

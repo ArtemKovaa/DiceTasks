@@ -65,10 +65,10 @@ public class MainActivity extends FragmentActivity {
                     }
                     break;
                 case R.id.navigation_settings:
-                    selectedFragment = new SettingsFragment();
+                    selectedFragment = new ProfileFragment();
                     break;
                 case R.id.navigation_profile:
-                    selectedFragment = new ProfileFragment();
+                    selectedFragment = new CompletedFragment();
                     break;
             }
 

@@ -3,8 +3,8 @@
 
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_profile"
-        android:title="Профиль" />
+        android:icon="@drawable/ic_completed_tasks"
+        android:title="Сделано" />
 
     <item
         android:id="@+id/navigation_add"
@@ -13,7 +13,7 @@
 
     <item
         android:id="@+id/navigation_settings"
-        android:icon="@drawable/ic_settings"
-        android:title="Настройки" />
+        android:icon="@drawable/ic_profile"
+        android:title="Профиль" />
 
 </menu>

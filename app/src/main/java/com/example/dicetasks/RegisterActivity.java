@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -52,11 +53,19 @@ public class RegisterActivity extends AppCompatActivity {
         String password = etRegisterPassword.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)) {
-            etRegisterEmail.setError("Почта не может быть пустая");
+            etRegisterEmail.setError("Это поле должно быть заполнено!");
             etRegisterEmail.requestFocus();
         }
         else if (TextUtils.isEmpty(password)) {
-            etRegisterPassword.setError("Пароль не может быть пустым");
+            etRegisterPassword.setError("Это поле должно быть заполнено!");
+            etRegisterPassword.requestFocus();
+        }
+        else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            etRegisterEmail.setError("Пожалуйста, укажите действительную почту!");
+            etRegisterEmail.requestFocus();
+        }
+        else if (password.length() < 6) {
+            etRegisterPassword.setError("Пароль слишком короткий!");
             etRegisterPassword.requestFocus();
         }
         else {

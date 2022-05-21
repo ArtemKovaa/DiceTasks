@@ -3,9 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/DiceTasks/app/src/main/res/layout/activity_login.xml" value="0.18854166666666666" />
+        <entry key="..\:/DiceTasks/app/src/main/res/drawable/back_red_radiobutton.xml" value="0.288" />
+        <entry key="..\:/DiceTasks/app/src/main/res/drawable/ic_checkmark.xml" value="0.288" />
+        <entry key="..\:/DiceTasks/app/src/main/res/layout/activity_forgot_password.xml" value="0.22" />
+        <entry key="..\:/DiceTasks/app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="..\:/DiceTasks/app/src/main/res/layout/activity_main.xml" value="0.2630208333333333" />
+        <entry key="..\:/DiceTasks/app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="..\:/DiceTasks/app/src/main/res/layout/completed_task_card.xml" value="0.24456521739130435" />
         <entry key="..\:/DiceTasks/app/src/main/res/layout/main_fragment.xml" value="0.18802083333333333" />
+        <entry key="..\:/DiceTasks/app/src/main/res/layout/profile_fragment.xml" value="0.24456521739130435" />
         <entry key="..\:/DiceTasks/app/src/main/res/layout/settings_fragment.xml" value="0.18958333333333333" />
+        <entry key="..\:/DiceTasks/app/src/main/res/layout/task_card.xml" value="0.1" />
+        <entry key="..\:/DiceTasks/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2630208333333333" />
         <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1625" />
         <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1625" />
         <entry key="..\:/Users/dinoa/AndroidStudioProjects/DiceTasks/app/src/main/res/drawable/ic_menu_camera.xml" value="0.1625" />

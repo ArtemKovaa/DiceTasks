@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +25,9 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText etLoginEmail;
     TextInputEditText etLoginPassword;
     TextView tvRegisterHere;
+    TextView tvForgotPassword;
     Button loginButton;
+
 
     FirebaseAuth mAuth;
 
@@ -34,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         etLoginEmail = findViewById(R.id.et_login_email);
         etLoginPassword = findViewById(R.id.et_login_password);
         tvRegisterHere = findViewById(R.id.tv_register_here);
+        tvForgotPassword = findViewById(R.id.tv_forgot_password);
         loginButton = findViewById(R.id.login_button);
 
         mAuth = FirebaseAuth.getInstance();
@@ -45,19 +51,27 @@ public class LoginActivity extends AppCompatActivity {
         tvRegisterHere.setOnClickListener(view -> {
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
         });
+
+        tvForgotPassword.setOnClickListener(view -> {
+            startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
+        });
     }
 
     private void loginUser() {
-        String email = etLoginEmail.getText().toString();
-        String password = etLoginPassword.getText().toString();
+        String email = etLoginEmail.getText().toString().trim();
+        String password = etLoginPassword.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)) {
-            etLoginEmail.setError("Почта не может быть пустая");
+            etLoginEmail.setError("Это поле должно быть заполнено!");
             etLoginEmail.requestFocus();
         }
         else if (TextUtils.isEmpty(password)) {
-            etLoginPassword.setError("Пароль не может быть пустым");
+            etLoginPassword.setError("Это поле должно быть заполнено!");
             etLoginPassword.requestFocus();
+        }
+        else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            etLoginEmail.setError("Пожалуйста, укажите действительную почту!");
+            etLoginEmail.requestFocus();
         }
         else {
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

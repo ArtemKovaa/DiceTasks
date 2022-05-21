@@ -1,93 +1,36 @@
 package com.example.dicetasks;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.dicetasks.data.CompletedTask;
-import com.example.dicetasks.data.CompletedTaskAdapter;
-import com.example.dicetasks.data.TaskAdapter;
-import com.example.dicetasks.data.TasksDB;
-import com.example.dicetasks.data.TasksDao;
-
-import java.util.List;
-
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileFragment extends Fragment {
 
-    RecyclerView recyclerView;
-    List<CompletedTask> loadedTasks;
+    Button logoutButton;
+    FirebaseAuth mAuth;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.profile_fragment, container, false);
-        getActivity().findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
-        TextView textView = getActivity().findViewById(R.id.active_tasks_text);
-        textView.setText("Выполненные задания");
+        getActivity().findViewById(R.id.toolbar).setVisibility(View.GONE);
 
-        TasksDB tasksDB = TasksDB.getInstance(getActivity());
-        TasksDao tasksDao = tasksDB.tasksDao();
+        logoutButton = view.findViewById(R.id.logout_button);
+        mAuth = FirebaseAuth.getInstance();
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        logoutButton.setOnClickListener(v -> {
+            mAuth.signOut();
+            startActivity(new Intent(getContext(), LoginActivity.class));
+        });
 
-        recyclerView = view.findViewById(R.id.recycler_view_profile);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(linearLayoutManager);
-
-
-        tasksDao.getCompletedTasks()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<CompletedTask>>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-                    }
-
-                    @Override
-                    public void onNext(@NonNull List<CompletedTask> completedTasks) {
-                        loadedTasks = completedTasks;
-                        CompletedTaskAdapter adapter = new CompletedTaskAdapter(loadedTasks);
-                        recyclerView.setAdapter(adapter);
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
-        initRecyclerView(view);
         return view;
-    }
-
-    public void initRecyclerView(View v) {
-        RecyclerView recyclerView = v.findViewById(R.id.recycler_view_profile);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getParent());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,true));
-    }
-
-    @NonNull
-    @Override
-    public String toString() {
-        return "ProfileFragment";
     }
 }
