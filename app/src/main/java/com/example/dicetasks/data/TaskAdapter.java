@@ -85,13 +85,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                 }
             }*/
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    disposable = tasksDao.insertCompleted(completedTask)
-                            .subscribeOn(Schedulers.io()).subscribe();
-                }
-            }).start();
+
+            disposable = tasksDao.insertCompleted(completedTask)
+                    .subscribeOn(Schedulers.io()).subscribe();
+
 
             new Thread(new Runnable() {
                 @Override
