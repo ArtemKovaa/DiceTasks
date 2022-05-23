@@ -25,12 +25,18 @@ import com.example.dicetasks.data.TasksDao;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 import java.util.Random;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends FragmentActivity {
 
@@ -39,6 +45,11 @@ public class MainActivity extends FragmentActivity {
     BottomNavigationView navigation;
     View addBut;
     private FirebaseAuth mAuth;
+    Disposable disposable;
+    private String TABlE = "Tasks";
+
+    DatabaseReference dataBase;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -200,6 +211,42 @@ public class MainActivity extends FragmentActivity {
         popupMenu.show();
     }*/
 
+    /*private void getDataFromDB() {
+        TasksDB tasksDB = TasksDB.getInstance(getBaseContext());
+        TasksDao tasksDao = tasksDB.tasksDao();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                tasksDao.deleteAllTasks();
+            }
+        }).start();
+
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    Task task = ds.getValue(Task.class);
+                    if (task.getUserID().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tasksDao.insert(task)
+                                        .subscribeOn(Schedulers.io()).subscribe();
+                            }
+                        }).start();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        dataBase.addValueEventListener(valueEventListener);
+    }*/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -223,9 +270,13 @@ public class MainActivity extends FragmentActivity {
     @Override
     public void onStart() {
         super.onStart();
+        //dataBase = FirebaseDatabase.getInstance().getReference(TABlE);
+
+        //getDataFromDB();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user == null) {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
+
     }
 }

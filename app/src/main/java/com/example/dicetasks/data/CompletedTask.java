@@ -9,6 +9,7 @@ public class CompletedTask {
 
     @PrimaryKey(autoGenerate = true)
     long id;
+    private String userID = "NULL";
     private String completedTaskTitle;
     private String completedTaskDescription;
     private int completedTaskCategory;
@@ -65,5 +66,13 @@ public class CompletedTask {
 
     public void setVisibility(int visibility) {
         this.visibility = visibility;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 }

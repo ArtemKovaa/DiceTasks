@@ -35,6 +35,9 @@ public interface TasksDao {
     @Query("DELETE FROM completed_tasks WHERE id = :id")
     void deleteCompletedById(long id);
 
+    @Query("DELETE FROM tasks")
+    void deleteAllTasks();
+
     //Thing that gets tasks in db
     @Query("SELECT COUNT(*) FROM tasks WHERE taskPriority = 3 AND visibility != 0")
     int countRands();

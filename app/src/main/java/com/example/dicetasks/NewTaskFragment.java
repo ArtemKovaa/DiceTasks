@@ -25,6 +25,9 @@ import com.example.dicetasks.data.Task;
 import com.example.dicetasks.data.TasksDB;
 import com.example.dicetasks.data.TasksDao;
 import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
@@ -40,6 +43,9 @@ public class NewTaskFragment extends Fragment {
     RadioButton highPriorityButton;
     RadioButton mediumPriorityButton;
     RadioButton lowPriorityButton;
+
+    DatabaseReference dataBase;
+    private String TABlE = "Tasks";
 
     Integer taskPriority;
 
@@ -61,6 +67,8 @@ public class NewTaskFragment extends Fragment {
 
         TasksDB tasksDB = TasksDB.getInstance(getActivity());
         TasksDao tasksDao = tasksDB.tasksDao();
+
+        dataBase = FirebaseDatabase.getInstance().getReference(TABlE);
 
         returnButton = view.findViewById(R.id.returnButton);
         addTaskButton = view.findViewById(R.id.addTaskButton);
@@ -89,9 +97,19 @@ public class NewTaskFragment extends Fragment {
                         .show();
                 return;
             }
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    task.setUserID(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    String key = dataBase.push().getKey();
+                    task.setKey(key);
+                    dataBase.child(key).setValue(task);
+                }
+            }).start();
 
-            disposable = tasksDao.insert(task)
-                    .subscribeOn(Schedulers.io()).subscribe(this::returnToHomeScreen);
+            returnToHomeScreen();
+            /*disposable = tasksDao.insert(task)
+                    .subscribeOn(Schedulers.io()).subscribe(this::returnToHomeScreen);*/
 
             //Makes the navView appear back
             View navView = requireActivity().findViewById(R.id.nav_view);

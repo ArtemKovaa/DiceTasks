@@ -13,6 +13,12 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dicetasks.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -28,7 +34,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     }
 
     Disposable disposable;
-
+    DatabaseReference dataBase;
 
     @NonNull
     @Override
@@ -51,6 +57,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         CompletedTask completedTask =
                 new CompletedTask(task.getTaskTitle(), task.getTaskDescription(),
                         task.getTaskCategory(), task.getTaskPriority(), task.getVisibility());
+        completedTask.setUserID(task.getUserID());
         ImageButton imageButton = holder.imageButton;
 
         imageButton.setOnClickListener(v-> {
@@ -85,11 +92,28 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                 }
             }*/
 
+            disposable = tasksDao.insertCompleted(completedTask)
+                    .subscribeOn(Schedulers.io()).subscribe();
+
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    disposable = tasksDao.insertCompleted(completedTask)
-                            .subscribeOn(Schedulers.io()).subscribe();
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                    Query applesQuery = ref.child("Tasks").orderByChild("key").equalTo(task.getKey());
+
+                    applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                                appleSnapshot.getRef().removeValue();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
             }).start();
 

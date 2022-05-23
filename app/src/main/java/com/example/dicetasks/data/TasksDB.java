@@ -24,7 +24,7 @@ public abstract class TasksDB extends RoomDatabase {
                         @Override
                         public void onCreate(@NonNull SupportSQLiteDatabase db) {
                             super.onCreate(db);
-                            fillDB(db);
+                            //fillDB(db);
                         }
                     })
                     .fallbackToDestructiveMigration()
@@ -34,18 +34,18 @@ public abstract class TasksDB extends RoomDatabase {
     }
 
     private static void fillDB(@NonNull SupportSQLiteDatabase db) {
-        db.execSQL("INSERT INTO tasks (taskTitle, taskDescription, taskCategory, taskPriority, visibility) " +
-                "VALUES('Первый раз', 'Создайте свое задание', 1, 3, 1)");
-        db.execSQL("INSERT INTO tasks (taskTitle, taskDescription, taskCategory, taskPriority, visibility) " +
-                "VALUES('Защитник', 'Сдать проект по самсунгу', 2, 3, 1)");
-        db.execSQL("INSERT INTO tasks (taskTitle, taskDescription, taskCategory, taskPriority, visibility) " +
-                "VALUES('Покормить пса', 'Без комментариев, Вы всего лишь раб...', 3, 3, 1)");
-        db.execSQL("INSERT INTO tasks (taskTitle, taskDescription, taskCategory, taskPriority, visibility) " +
-                "VALUES('\uD83C\uDD71edolaga', 'Сделайте домашнее задание', 4, 3, 0)");
-        db.execSQL("INSERT INTO tasks (taskTitle, taskDescription, taskCategory, taskPriority, visibility) " +
-                "VALUES('Псих', 'Сдай сессию на отлично', 5, 3, 0)");
-        db.execSQL("INSERT INTO tasks (taskTitle, taskDescription, taskCategory, taskPriority, visibility) " +
-                "VALUES('Дед инсайд', 'Поиграй в доту', 5, 3, 0)");
+        /*db.execSQL("INSERT INTO tasks (userID, taskTitle, taskDescription, taskCategory, taskPriority, visibility) " +
+                "VALUES('NULL' ,'Первый раз', 'Создайте свое задание', 1, 3, 1)");
+        db.execSQL("INSERT INTO tasks (userID, taskTitle, taskDescription, taskCategory, taskPriority, visibility) " +
+                "VALUES('NULL' ,'Велосипедная прогулка', 'Проведите время с семьей или друзьями, катаясь на велоспипедах', 2, 3, 1)");
+        db.execSQL("INSERT INTO tasks (userID, taskTitle, taskDescription, taskCategory, taskPriority, visibility) " +
+                "VALUES('NULL' ,'Покормить пса', 'Без комментариев, Вы всего лишь раб...', 3, 3, 1)");
+        db.execSQL("INSERT INTO tasks (userID, taskTitle, taskDescription, taskCategory, taskPriority, visibility) " +
+                "VALUES('NULL' ,'\uD83C\uDD71edolaga', 'Сделайте домашнее задание', 4, 3, 1)");
+        db.execSQL("INSERT INTO tasks (userID, taskTitle, taskDescription, taskCategory, taskPriority, visibility) " +
+                "VALUES('NULL' ,'Зубрила', 'Сдай сессию на отлично', 5, 3, 0)");
+        db.execSQL("INSERT INTO tasks (userID, taskTitle, taskDescription, taskCategory, taskPriority, visibility) " +
+                "VALUES('NULL' ,'Дед инсайд', 'Поиграй в доту', 5, 3, 0)");*/
     }
 
 }
