@@ -129,7 +129,6 @@ public class MainFragment extends Fragment {
                         if (currentUser != null && task.getUserID().equals(currentUser.getUid())) {
                             tasksDao.insert(task)
                                     .subscribeOn(Schedulers.io()).subscribe();
-
                         }
                     }
                 }
