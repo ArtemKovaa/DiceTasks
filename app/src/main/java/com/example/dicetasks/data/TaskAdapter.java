@@ -106,7 +106,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
-                                appleSnapshot.getRef().removeValue();
+                                if(task.getTaskPriority() == 3) {
+                                    appleSnapshot.getRef().child("visibility").setValue(0);
+                                } else {
+                                    appleSnapshot.getRef().removeValue();
+                                }
                                 new Thread(new Runnable() {
                                     @Override
                                     public void run() {
