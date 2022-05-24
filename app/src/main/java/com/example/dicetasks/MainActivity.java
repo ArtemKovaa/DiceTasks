@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -115,6 +116,7 @@ public class MainActivity extends FragmentActivity {
             popupWindow.dismiss();
             popupWindow = null;
 
+            dataBase = FirebaseDatabase.getInstance().getReference("RandomTasks");
             TasksDB tasksDB = TasksDB.getInstance(getBaseContext());
             TasksDao tasksDao = tasksDB.tasksDao();
 

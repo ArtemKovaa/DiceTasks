@@ -116,8 +116,6 @@ public class MainFragment extends Fragment {
         TasksDB tasksDB = TasksDB.getInstance(getActivity());
         TasksDao tasksDao = tasksDB.tasksDao();
 
-
-
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -132,6 +130,30 @@ public class MainFragment extends Fragment {
                             tasksDao.insert(task)
                                     .subscribeOn(Schedulers.single()).subscribe();
                             Log.e("onDataChange", "I FUCKING HATE N " + task.getTaskTitle());
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        dataBase.addValueEventListener(valueEventListener);
+
+        dataBase = FirebaseDatabase.getInstance().getReference("RandomTasks");
+
+        valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    Task task = ds.getValue(Task.class);
+                    if (task != null) {
+                        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                        if (currentUser != null) {
+                            tasksDao.insert(task)
+                                    .subscribeOn(Schedulers.single()).subscribe();
                         }
                     }
                 }
