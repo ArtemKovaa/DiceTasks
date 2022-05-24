@@ -1,6 +1,7 @@
 package com.example.dicetasks;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.List;
 import java.util.Objects;
 
+import io.reactivex.Completable;
+import io.reactivex.CompletableObserver;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -112,23 +115,23 @@ public class MainFragment extends Fragment {
     private void getDataFromDB() {
         TasksDB tasksDB = TasksDB.getInstance(getActivity());
         TasksDao tasksDao = tasksDB.tasksDao();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                tasksDao.deleteAllTasks();
-            }
-        }).start();
+
+
 
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                tasksDao.deleteAllTasks().subscribeOn(Schedulers.single()).subscribe();
                 for (DataSnapshot ds : snapshot.getChildren()) {
+
                     Task task = ds.getValue(Task.class);
                     if (task != null) {
                         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                         if (currentUser != null && task.getUserID().equals(currentUser.getUid())) {
                             tasksDao.insert(task)
-                                    .subscribeOn(Schedulers.io()).subscribe();
+                                    .subscribeOn(Schedulers.single()).subscribe();
+                            Log.e("onDataChange", "I FUCKING HATE N " + task.getTaskTitle());
                         }
                     }
                 }
@@ -140,6 +143,7 @@ public class MainFragment extends Fragment {
         };
         dataBase.addValueEventListener(valueEventListener);
     }
+
 
     public void initRecyclerView(View v) {
         RecyclerView recyclerView = v.findViewById(R.id.recycler_view);

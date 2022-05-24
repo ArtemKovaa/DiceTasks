@@ -97,6 +97,7 @@ public class NewTaskFragment extends Fragment {
                         .show();
                 return;
             }
+
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -107,13 +108,14 @@ public class NewTaskFragment extends Fragment {
                 }
             }).start();
 
-            returnToHomeScreen();
+
             /*disposable = tasksDao.insert(task)
                     .subscribeOn(Schedulers.io()).subscribe(this::returnToHomeScreen);*/
 
             //Makes the navView appear back
             View navView = requireActivity().findViewById(R.id.nav_view);
             navView.setVisibility(View.VISIBLE);
+            returnToHomeScreen();
         });
 
         highPriorityButton.setOnClickListener(v -> {

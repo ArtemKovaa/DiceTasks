@@ -36,7 +36,7 @@ public interface TasksDao {
     void deleteCompletedById(long id);
 
     @Query("DELETE FROM tasks")
-    void deleteAllTasks();
+    Completable deleteAllTasks();
 
     //Thing that gets tasks in db
     @Query("SELECT COUNT(*) FROM tasks WHERE taskPriority = 3 AND visibility != 0")
