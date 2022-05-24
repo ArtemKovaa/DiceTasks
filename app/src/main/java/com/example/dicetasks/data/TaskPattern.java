@@ -4,7 +4,6 @@ import androidx.room.PrimaryKey;
 
 public class TaskPattern {
 
-    @PrimaryKey(autoGenerate = true)
     long id;
     protected String userID = "NULL";
     protected String taskTitle;

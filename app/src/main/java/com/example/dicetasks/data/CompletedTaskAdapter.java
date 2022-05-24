@@ -15,6 +15,8 @@ import com.example.dicetasks.R;
 
 import java.util.List;
 
+import io.reactivex.schedulers.Schedulers;
+
 public class CompletedTaskAdapter extends RecyclerView.Adapter<CompletedTaskAdapter.ViewHolder> {
 
     private List<CompletedTask> data;

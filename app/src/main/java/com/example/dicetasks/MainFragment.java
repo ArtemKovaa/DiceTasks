@@ -52,11 +52,12 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+        Log.e("I'M ONCREATE", "I'M HERE");
         View view = inflater.inflate(R.layout.main_fragment, container, false);
 
         dataBase = FirebaseDatabase.getInstance().getReference(TABlE);
 
-        getDataFromDB();
+        //getDataFromDB();
 
         getActivity().findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
         TextView textView = getActivity().findViewById(R.id.active_tasks_text);
@@ -130,30 +131,6 @@ public class MainFragment extends Fragment {
                             tasksDao.insert(task)
                                     .subscribeOn(Schedulers.single()).subscribe();
                             Log.e("onDataChange", "I FUCKING HATE N " + task.getTaskTitle());
-                        }
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        };
-        dataBase.addValueEventListener(valueEventListener);
-
-        dataBase = FirebaseDatabase.getInstance().getReference("RandomTasks");
-
-        valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    Task task = ds.getValue(Task.class);
-                    if (task != null) {
-                        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                        if (currentUser != null) {
-                            tasksDao.insert(task)
-                                    .subscribeOn(Schedulers.single()).subscribe();
                         }
                     }
                 }

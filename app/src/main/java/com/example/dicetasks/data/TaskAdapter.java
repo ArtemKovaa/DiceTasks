@@ -58,6 +58,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                 new CompletedTask(task.getTaskTitle(), task.getTaskDescription(),
                         task.getTaskCategory(), task.getTaskPriority(), task.getVisibility());
         completedTask.setUserID(task.getUserID());
+
         ImageButton imageButton = holder.imageButton;
 
         imageButton.setOnClickListener(v-> {
@@ -106,6 +107,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
                                 appleSnapshot.getRef().removeValue();
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        tasksDao.deleteById(task.getId());
+                                    }
+                                });
                             }
                         }
 

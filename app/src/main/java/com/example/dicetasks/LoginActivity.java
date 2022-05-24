@@ -19,6 +19,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -43,7 +48,17 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.login_button);
 
         mAuth = FirebaseAuth.getInstance();
-
+        /*DatabaseReference database = FirebaseDatabase.getInstance().getReference("RandomTasks");
+        com.example.dicetasks.data.Task task1 = new com.example.dicetasks.data.Task("Первый раз", "Создайте своё первое задание", 1, 3, 0);
+        com.example.dicetasks.data.Task task2 = new com.example.dicetasks.data.Task("Велосипедная прогулка", "Проведите время с семьей или друзьями, катаясь на велоспипедах", 2, 3, 0);
+        com.example.dicetasks.data.Task task3 = new com.example.dicetasks.data.Task("\uD83C\uDD71edolaga", "Сделайте домашнее задание", 3, 3, 0);
+        com.example.dicetasks.data.Task task4 = new com.example.dicetasks.data.Task("Дед инсайд", "Поиграйте в доту", 3, 3, 0);
+        com.example.dicetasks.data.Task task5 = new com.example.dicetasks.data.Task("Дед инсайд", "Поиграйте в доту", 3, 3, 0);
+        database.push().setValue(task1);
+        database.push().setValue(task2);
+        database.push().setValue(task3);
+        database.push().setValue(task4);
+        database.push().setValue(task5);*/
         loginButton.setOnClickListener(view -> {
             loginUser();
         });

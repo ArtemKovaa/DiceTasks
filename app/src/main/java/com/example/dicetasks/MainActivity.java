@@ -49,7 +49,7 @@ public class MainActivity extends FragmentActivity {
     Disposable disposable;
     private String TABlE = "Tasks";
 
-    DatabaseReference dataBase;
+    DatabaseReference dataBase = FirebaseDatabase.getInstance().getReference("Tasks");;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -109,7 +109,6 @@ public class MainActivity extends FragmentActivity {
             popupWindow.dismiss();
             popupWindow = null;
 
-            dataBase = FirebaseDatabase.getInstance().getReference("RandomTasks");
             TasksDB tasksDB = TasksDB.getInstance(getBaseContext());
             TasksDao tasksDao = tasksDB.tasksDao();
 
@@ -123,7 +122,15 @@ public class MainActivity extends FragmentActivity {
                 @Override
                 public void run() {
                     if (tasksDao.countRands() < 3) {
-                        tasksDao.setVisibilityByID(random.nextInt() % 6 + 1, 1);
+                        int randId = tasksDao.getFirstInvisibleByCategory
+                                (random.nextInt()%6+1);
+                        tasksDao.setVisibilityByID(randId, 1);
+                        Task task = tasksDao.getByTaskId(randId);
+                        if (task!=null) {
+                            String key = task.getKey();
+                            dataBase.child(key).child("visibility").setValue(1);
+
+                        }
                     } else {
                         Handler handler = new Handler(Looper.getMainLooper());
                         handler.post(new Runnable() {
@@ -184,6 +191,7 @@ public class MainActivity extends FragmentActivity {
         addBut = findViewById(R.id.navigation_add);
 
 
+        getDataFromDB();
     }
 
     @Override
@@ -197,5 +205,35 @@ public class MainActivity extends FragmentActivity {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
 
+    }
+
+    private void getDataFromDB() {
+        TasksDB tasksDB = TasksDB.getInstance(getBaseContext());
+        TasksDao tasksDao = tasksDB.tasksDao();
+
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                tasksDao.deleteAllTasks().subscribeOn(Schedulers.single()).subscribe();
+                for (DataSnapshot ds : snapshot.getChildren()) {
+
+                    Task task = ds.getValue(Task.class);
+                    if (task != null) {
+                        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                        if (currentUser != null && task.getUserID().equals(currentUser.getUid())) {
+                            tasksDao.insert(task)
+                                    .subscribeOn(Schedulers.single()).subscribe();
+                            Log.e("onDataChange", "I FUCKING HATE N " + task.getTaskTitle());
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        dataBase.addValueEventListener(valueEventListener);
     }
 }
