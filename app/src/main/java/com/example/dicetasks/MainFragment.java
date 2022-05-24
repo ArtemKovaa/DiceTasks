@@ -166,11 +166,14 @@ public class MainFragment extends Fragment {
         dataBase.addValueEventListener(valueEventListener);
     }
 
-
-    public void initRecyclerView(View v) {
+    private void initRecyclerView(View v) {
         RecyclerView recyclerView = v.findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getParent());
         recyclerView.setLayoutManager(layoutManager);
+    }
+
+    private void firstStartRandomLoad() {
+        
     }
 
     @NonNull

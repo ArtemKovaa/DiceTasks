@@ -9,13 +9,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dicetasks.R;
 
 import java.util.List;
-import java.util.Stack;
 
 public class CompletedTaskAdapter extends RecyclerView.Adapter<CompletedTaskAdapter.ViewHolder> {
 
@@ -42,8 +40,8 @@ public class CompletedTaskAdapter extends RecyclerView.Adapter<CompletedTaskAdap
     public void onBindViewHolder(@NonNull CompletedTaskAdapter.ViewHolder holder, int position) {
         CompletedTask completedTask = data.get(position);
 
-        holder.title.setText(completedTask.getCompletedTaskTitle());
-        holder.description.setText(completedTask.getCompletedTaskDescription());
+        holder.title.setText(completedTask.getTaskTitle());
+        holder.description.setText(completedTask.getTaskDescription());
         holder.cardView.setAlpha(0.6f);
 
         ImageButton imageButton = holder.imageButton;

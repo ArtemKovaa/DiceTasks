@@ -64,13 +64,6 @@ public class MainActivity extends FragmentActivity {
                             instanceof MainFragment) {
                         if(popupWindow == null || !popupWindow.isShowing())
                             showPopup();
-
-                        //old code
-                        //selectedFragment = new NewTaskFragment();
-                        /*
-                        //making the nav bar go invisible before going to NewTaskFragment
-                        View navView = findViewById(R.id.nav_view);
-                        navView.setVisibility(View.GONE);*/
                     }
                     else {
                         selectedFragment = new MainFragment();
@@ -175,80 +168,6 @@ public class MainActivity extends FragmentActivity {
         });*/
     }
 
-   /* // TODO: replace PopupMenu with PopupWindow
-    private void showPopupMenu(View v) {
-        PopupMenu popupMenu = new PopupMenu(this,v);
-        popupMenu.inflate(R.menu.popup_menu);
-
-        popupMenu
-                .setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.random:
-                                Toast.makeText(getApplicationContext(),
-                                        "Вы выбрали random",
-                                        Toast.LENGTH_SHORT).show();
-                                return true;
-                            case R.id.personal:
-                                Toast.makeText(getApplicationContext(),
-                                        "Вы выбрали personal",
-                                        Toast.LENGTH_SHORT).show();
-                                return true;
-                            default:
-                                return false;
-                        }
-                    }
-                });
-
-        //Remove when you're mentally prepared
-        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
-            @Override
-            public void onDismiss(PopupMenu menu) {
-                Toast.makeText(getApplicationContext(), "onDismiss (test)",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        popupMenu.show();
-    }*/
-
-    /*private void getDataFromDB() {
-        TasksDB tasksDB = TasksDB.getInstance(getBaseContext());
-        TasksDao tasksDao = tasksDB.tasksDao();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                tasksDao.deleteAllTasks();
-            }
-        }).start();
-
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    Task task = ds.getValue(Task.class);
-                    if (task.getUserID().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                tasksDao.insert(task)
-                                        .subscribeOn(Schedulers.io()).subscribe();
-                            }
-                        }).start();
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        };
-        dataBase.addValueEventListener(valueEventListener);
-    }*/
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -259,14 +178,12 @@ public class MainActivity extends FragmentActivity {
         parent = findViewById(R.id.main);
         navigation = findViewById(R.id.nav_view);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        /*getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, new MainFragment())
-                .commit();*/
 
         //Summoning the main activity
         navigation.setSelectedItemId(R.id.navigation_add);
         addBut = findViewById(R.id.navigation_add);
+
+
     }
 
     @Override
