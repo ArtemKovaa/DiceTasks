@@ -1,5 +1,6 @@
 package com.example.dicetasks.data;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,7 @@ public class CompletedTaskAdapter extends RecyclerView.Adapter<CompletedTaskAdap
             new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    Log.e("I'M ONBINDVIEWHOLDER", Long.toString(completedTask.getId()));
                     tasksDao.deleteCompletedById(completedTask.getId());
                 }
             }).start();

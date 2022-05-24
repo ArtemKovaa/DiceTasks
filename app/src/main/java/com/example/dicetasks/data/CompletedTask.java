@@ -12,4 +12,9 @@ public class CompletedTask extends TaskPattern {
     public CompletedTask(String taskTitle, String taskDescription, int taskCategory, int taskPriority, int visibility) {
         super( taskTitle, taskDescription, taskCategory, taskPriority, visibility);
     }
+
+
+    public long getId() {
+        return id;
+    }
 }

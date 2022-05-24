@@ -14,4 +14,8 @@ public class Task extends TaskPattern{
     public Task(String taskTitle, String taskDescription, int taskCategory, int taskPriority, int visibility) {
         super( taskTitle, taskDescription, taskCategory, taskPriority, visibility);
     }
+
+    public long getId() {
+        return id;
+    }
 }

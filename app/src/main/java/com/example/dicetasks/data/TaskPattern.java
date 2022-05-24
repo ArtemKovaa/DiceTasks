@@ -4,7 +4,6 @@ import androidx.room.PrimaryKey;
 
 public class TaskPattern {
 
-    long id;
     protected String userID = "NULL";
     protected String taskTitle;
     protected String taskDescription;
@@ -49,9 +48,6 @@ public class TaskPattern {
         return taskCategory;
     }
 
-    public long getId() {
-        return id;
-    }
 
     public int getVisibility() {
         return visibility;
