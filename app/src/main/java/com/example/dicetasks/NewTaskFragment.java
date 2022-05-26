@@ -104,7 +104,7 @@ public class NewTaskFragment extends Fragment {
                     task.setUserID(FirebaseAuth.getInstance().getCurrentUser().getUid());
                     String key = dataBase.push().getKey();
                     task.setKey(key);
-                    tasksDao.insert(task);
+                    tasksDao.insert(task).subscribeOn(Schedulers.io()).subscribe();
                     dataBase.child(key).setValue(task);
                 }
             }).start();

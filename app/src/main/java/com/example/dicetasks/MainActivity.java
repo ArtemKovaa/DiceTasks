@@ -31,6 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.SnapshotHolder;
 
 import java.util.List;
 import java.util.Random;
@@ -115,7 +116,7 @@ public class MainActivity extends FragmentActivity {
                 public void run() {
                     if (tasksDao.countRands() < 3) {
                         int randId = tasksDao.getFirstInvisibleByCategory
-                                (random.nextInt() % 35 + 1);
+                                (Math.abs(random.nextInt()) % 35 + 1);
                         tasksDao.setVisibilityByID(randId, 1);
                         Task task = tasksDao.getByTaskId(randId);
                         if (task != null) {
@@ -192,6 +193,9 @@ public class MainActivity extends FragmentActivity {
         TasksDB tasksDB = TasksDB.getInstance(getBaseContext());
         TasksDao tasksDao = tasksDB.tasksDao();
 
+        tasksDao.deleteAllTasks().subscribeOn(Schedulers.single()).subscribe();
+        //DatabaseReference database = FirebaseDatabase.getInstance().getReference("Tasks");
+
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -208,8 +212,8 @@ public class MainActivity extends FragmentActivity {
                         }
                     }
                 }
+                dataBase.removeEventListener(this);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
