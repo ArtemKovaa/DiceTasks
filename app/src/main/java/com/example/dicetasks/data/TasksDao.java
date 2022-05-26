@@ -51,7 +51,7 @@ public interface TasksDao {
     @Query("UPDATE tasks SET visibility = :visibility WHERE id= :id")
     void setVisibilityByID(int id, int visibility);
 
-    @Query("SELECT id FROM tasks WHERE taskCategory = :category AND visibility = 0")
+    @Query("SELECT id FROM tasks WHERE taskCategory = :category")
     int getFirstInvisibleByCategory(int category);
 
 

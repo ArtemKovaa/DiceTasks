@@ -108,8 +108,6 @@ public class MainActivity extends FragmentActivity {
 
             Observable<List<Task>> list = tasksDao.getTasks();
 
-            Disposable disposable;
-
             Random random = new Random();
 
             new Thread(new Runnable() {
