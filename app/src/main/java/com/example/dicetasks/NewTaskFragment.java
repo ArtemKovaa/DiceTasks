@@ -45,7 +45,7 @@ public class NewTaskFragment extends Fragment {
     RadioButton lowPriorityButton;
 
     DatabaseReference dataBase;
-    private String TABlE = "Tasks";
+    final String TABlE = "Tasks";
 
     Integer taskPriority;
 
@@ -109,10 +109,6 @@ public class NewTaskFragment extends Fragment {
                 }
             }).start();
 
-
-            /*disposable = tasksDao.insert(task)
-                    .subscribeOn(Schedulers.io()).subscribe(this::returnToHomeScreen);*/
-
             //Makes the navView appear back
             View navView = requireActivity().findViewById(R.id.nav_view);
             navView.setVisibility(View.VISIBLE);
@@ -166,7 +162,6 @@ public class NewTaskFragment extends Fragment {
                 returnToHomeScreen();
             }
         };
-        // TODO: check if getViewLifecycleOwner is not in very high SDK (21 required)
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
         return view;

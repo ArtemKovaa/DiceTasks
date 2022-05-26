@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dicetasks.data.Statistics;
 import com.example.dicetasks.data.TasksDB;
 import com.example.dicetasks.data.TasksDao;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -66,72 +67,59 @@ public class RegisterActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(email)) {
             etRegisterEmail.setError("Это поле должно быть заполнено!");
             etRegisterEmail.requestFocus();
-        }
-        else if (TextUtils.isEmpty(password)) {
+        } else if (TextUtils.isEmpty(password)) {
             etRegisterPassword.setError("Это поле должно быть заполнено!");
             etRegisterPassword.requestFocus();
-        }
-        else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             etRegisterEmail.setError("Пожалуйста, укажите действительную почту!");
             etRegisterEmail.requestFocus();
-        }
-        else if (password.length() < 6) {
+        } else if (password.length() < 6) {
             etRegisterPassword.setError("Пароль слишком короткий!");
             etRegisterPassword.requestFocus();
-        }
-        else {
+        } else {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(RegisterActivity.this, "Регистрация " +
-                                "прошла успешно", Toast.LENGTH_SHORT).show();
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(RegisterActivity.this, "Регистрация " +
+                                        "прошла успешно", Toast.LENGTH_SHORT).show();
 
-                        //Code in charge of making up new randoms
-                        //TasksDB tasksDB = TasksDB.getInstance(getBaseContext());
-                        //TasksDao tasksDao = tasksDB.tasksDao();
-
-                        DatabaseReference randTasksBase = FirebaseDatabase.getInstance().getReference("RandomTasks");
-                        DatabaseReference database = FirebaseDatabase.getInstance().getReference("Tasks");
-                        DatabaseReference stats = FirebaseDatabase.getInstance().getReference("Statistics");
-                        ValueEventListener valueEventListener = new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                int counter = 0;
-                                for (DataSnapshot ds : snapshot.getChildren()) {
-                                    com.example.dicetasks.data.Task task = ds.getValue(com.example.dicetasks.data.Task.class);
-                                    com.example.dicetasks.data.Statistics statistics = ds.getValue(com.example.dicetasks.data.Statistics.class);
-                                    if (task != null) {
-                                        task.setUserID(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                DatabaseReference randTasksBase = FirebaseDatabase.getInstance().getReference("RandomTasks");
+                                DatabaseReference database = FirebaseDatabase.getInstance().getReference("Tasks");
+                                DatabaseReference stats = FirebaseDatabase.getInstance().getReference("Statistics");
+                                ValueEventListener valueEventListener = new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        com.example.dicetasks.data.Statistics statistics = new Statistics();
                                         statistics.setUserID(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                                        if (counter == 0) {
-                                            stats.push().setValue(statistics);
+                                        stats.push().setValue(statistics);
+                                        for (DataSnapshot ds : snapshot.getChildren()) {
+                                            com.example.dicetasks.data.Task task = ds.getValue(com.example.dicetasks.data.Task.class);
+                                            if (task != null) {
+                                                task.setUserID(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                                String key = database.push().getKey();
+                                                task.setKey(key);
+                                                database.child(key).setValue(task);
+                                            }
                                         }
-                                        String key = database.push().getKey();
-                                        task.setKey(key);
-                                        database.child(key).setValue(task);
-                                        counter++;
                                     }
-                                }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                };
+                                randTasksBase.addValueEventListener(valueEventListener);
+
+
+                                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                            } else {
+                                Toast.makeText(RegisterActivity.this, "Ошибка " +
+                                        "регистрации", Toast.LENGTH_SHORT).show();
                             }
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        };
-                        randTasksBase.addValueEventListener(valueEventListener);
-
-
-
-                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                    }
-                    else {
-                        Toast.makeText(RegisterActivity.this, "Ошибка " +
-                                "регистрации", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+                        }
+                    });
         }
     }
 }

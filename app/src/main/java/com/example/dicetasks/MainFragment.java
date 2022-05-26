@@ -38,26 +38,18 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MainFragment extends Fragment {
 
-    FloatingActionButton addTaskButton;
-    private FragmentActivity activityContext;
-    private TaskAdapter taskAdapter;
     RecyclerView recyclerView;
     List<Task> loadedTasks;
-
-    private String TABlE = "Tasks";
-
+    final String TABlE = "Tasks";
     DatabaseReference dataBase;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        Log.e("I'M ONCREATE", "I'M HERE");
         View view = inflater.inflate(R.layout.main_fragment, container, false);
 
         dataBase = FirebaseDatabase.getInstance().getReference(TABlE);
-
-        //getDataFromDB();
 
         getActivity().findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
         TextView textView = getActivity().findViewById(R.id.active_tasks_text);
@@ -73,15 +65,6 @@ public class MainFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        //addTaskButton = view.findViewById(R.id.add_task_button);
-        /*addTaskButton.setOnClickListener(v -> {
-            getActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, NewTaskFragment.class, null)
-                    .setReorderingAllowed(true)
-                    .addToBackStack("name")
-                    .commit();
-        });*/
 
         tasksDao.getTasks()
                 .subscribeOn(Schedulers.io())
@@ -130,11 +113,11 @@ public class MainFragment extends Fragment {
                         if (currentUser != null && task.getUserID().equals(currentUser.getUid())) {
                             tasksDao.insert(task)
                                     .subscribeOn(Schedulers.single()).subscribe();
-                            Log.e("onDataChange", "I FUCKING HATE N " + task.getTaskTitle());
                         }
                     }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -150,7 +133,7 @@ public class MainFragment extends Fragment {
     }
 
     private void firstStartRandomLoad() {
-        
+
     }
 
     @NonNull

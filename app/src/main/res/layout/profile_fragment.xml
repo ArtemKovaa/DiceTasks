@@ -9,11 +9,11 @@
         android:id="@+id/completed_tasks_block"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
         app:layout_constraintBottom_toTopOf="@+id/logout_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="70dp">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <androidx.cardview.widget.CardView
@@ -21,14 +21,15 @@
             android:layout_width="175dp"
             android:layout_height="175dp"
             android:layout_alignParentTop="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="10dp"
+            android:visibility="visible"
             app:cardBackgroundColor="@color/light_blue"
             app:cardCornerRadius="20dp"
-            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/completed_users"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="10dp">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -40,26 +41,27 @@
                     android:id="@+id/completed_randoms_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/completed_randoms_text"
                     android:text="0"
-                    android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:textSize="60sp"
-                    android:textColor="@color/black" />
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/completed_randoms_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/completed_randoms_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/completed_randoms_number"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:text="Сделанных случайных"
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:textColor="@color/black"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/completed_randoms_number" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -70,43 +72,46 @@
             android:layout_width="175dp"
             android:layout_height="175dp"
             android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:visibility="visible"
             app:cardBackgroundColor="@color/light_blue"
             app:cardCornerRadius="20dp"
-            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/completed_randoms"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="10dp">
+            app:layout_constraintStart_toEndOf="@+id/completed_randoms"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="20dp">
+
                 <TextView
                     android:id="@+id/completed_users_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/completed_users_text"
                     android:text="0"
-                    android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:textSize="60sp"
-                    android:textColor="@color/black" />
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/completed_users_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/completed_users_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/completed_users_number"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:text="Сделанных своих"
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:textColor="@color/black" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/completed_users_number" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
@@ -119,11 +124,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
+        android:background="@color/light_blue"
         android:padding="16dp"
         android:text="Выйти из учетной записи"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/completed_tasks_block"/>
+        app:layout_constraintTop_toBottomOf="@+id/completed_tasks_block" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

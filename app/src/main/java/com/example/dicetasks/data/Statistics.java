@@ -5,8 +5,7 @@ public class Statistics {
     private int completedRandoms = 0;
     private int completedUsers = 0;
 
-    public Statistics() {
-    }
+    public Statistics() {}
 
     public Statistics(String userID, int completedRandoms, int completedUsers) {
         this.userID = userID;

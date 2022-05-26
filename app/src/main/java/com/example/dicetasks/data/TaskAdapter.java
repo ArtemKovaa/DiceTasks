@@ -34,21 +34,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     }
 
     Disposable disposable;
-    DatabaseReference dataBase;
 
     @NonNull
     @Override
     public TaskAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.task_card, parent, false);
-        view.setOnClickListener(v -> {
-            Toast toast = Toast.makeText(v.getContext(), "Вы нажали на карточку. Зачем?",Toast.LENGTH_LONG);
-            toast.show();
-        });
         return new ViewHolder(view);
-        /*return new ViewHolder(LayoutInflater
-                .from(parent.getContext())
-                .inflate(R.layout.task_card, parent, false));*/
     }
 
     @Override
@@ -64,34 +56,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         imageButton.setOnClickListener(v-> {
             TasksDB tasksDB = TasksDB.getInstance(holder.itemView.getContext());
             TasksDao tasksDao = tasksDB.tasksDao();
-
-            /*int countOfRandom = 0;
-
-            for(Task elem: data){
-                if(elem.getTaskPriority() == 3 && elem.getVisibility() != 0)
-                    countOfRandom++;
-            }
-            if(countOfRandom == 3)
-            {
-                for(Task elem: data){
-                    if(elem.getTaskPriority() == 3 && elem.getVisibility() == 0) {
-                        Task toVisible = elem;
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                tasksDao.deleteById(elem.getId());
-                            }
-                        }).start();
-
-                        toVisible.setVisibility(1);
-                        disposable = tasksDao.insert(toVisible)
-                                .subscribeOn(Schedulers.io()).subscribe();
-
-                        //THE WORST PART OF OUR PROJECT TODO : remove break
-                        break;
-                    }
-                }
-            }*/
 
             disposable = tasksDao.insertCompleted(completedTask)
                     .subscribeOn(Schedulers.io()).subscribe();
@@ -109,9 +73,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                             for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                                 if(task.getTaskPriority() == 3) {
                                     snapshot.getRef().child("visibility").setValue(0);
-                                    // stats.child(task.getUserID()).setValue(stats.child(task
-                                    //        .getUserID()).child("completedRandoms"));
-
                                 } else {
                                     snapshot.getRef().removeValue();
                                 }
@@ -174,8 +135,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             }).start();
         });
 
-        /*Log.e("onBindViewHolder", "Title: " + task.getTaskTitle()+ " Desc: " +
-                task.getTaskDescription() + " Visabilbity" + task.getVisibility());*/
         if(task.getVisibility() == 0) {
             holder.itemView.setVisibility(View.GONE);
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));

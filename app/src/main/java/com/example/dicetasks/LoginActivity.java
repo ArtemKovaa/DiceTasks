@@ -33,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
     TextView tvForgotPassword;
     Button loginButton;
 
-
     FirebaseAuth mAuth;
 
     @Override

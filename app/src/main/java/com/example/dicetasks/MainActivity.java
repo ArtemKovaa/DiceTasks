@@ -46,11 +46,9 @@ public class MainActivity extends FragmentActivity {
     BottomNavigationView navigation;
     View addBut;
     private FirebaseAuth mAuth;
-    Disposable disposable;
     private String TABlE = "Tasks";
 
-    DatabaseReference dataBase = FirebaseDatabase.getInstance().getReference("Tasks");;
-
+    DatabaseReference dataBase = FirebaseDatabase.getInstance().getReference("Tasks");
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -60,12 +58,11 @@ public class MainActivity extends FragmentActivity {
             Fragment selectedFragment = null;
             switch (item.getItemId()) {
                 case R.id.navigation_add:
-                    if(getSupportFragmentManager().findFragmentById(R.id.fragment_container)
+                    if (getSupportFragmentManager().findFragmentById(R.id.fragment_container)
                             instanceof MainFragment) {
-                        if(popupWindow == null || !popupWindow.isShowing())
+                        if (popupWindow == null || !popupWindow.isShowing())
                             showPopup();
-                    }
-                    else {
+                    } else {
                         selectedFragment = new MainFragment();
                     }
                     break;
@@ -77,7 +74,6 @@ public class MainActivity extends FragmentActivity {
                     break;
             }
 
-            //assert selectedFragment != null;
             if (selectedFragment == null)
                 return false;
             getSupportFragmentManager()
@@ -90,21 +86,19 @@ public class MainActivity extends FragmentActivity {
         }
     };
 
-    private void showPopup () {
+    private void showPopup() {
         View view = LayoutInflater.from(getBaseContext())
                 .inflate(R.layout.task_choice_popup_window, null, true);
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
 
-        popupWindow = new PopupWindow(view,width,height,true);
-        popupWindow.showAtLocation(parent, Gravity.TOP, 0, (int)navigation.getY() - (int)popupWindow.getHeight()*2);
-        //popupWindow.showAsDropDown(addBut,0,0, Gravity.CENTER);
+        popupWindow = new PopupWindow(view, width, height, true);
+        popupWindow.showAtLocation(parent, Gravity.TOP, 0, (int) navigation.getY() - (int) popupWindow.getHeight() * 2);
 
 
         Button addRandom = view.findViewById(R.id.add_random);
         Button createNew = view.findViewById(R.id.create_new);
 
-        // TODO: logic for random task
         addRandom.setOnClickListener(v -> {
             popupWindow.dismiss();
             popupWindow = null;
@@ -123,10 +117,10 @@ public class MainActivity extends FragmentActivity {
                 public void run() {
                     if (tasksDao.countRands() < 3) {
                         int randId = tasksDao.getFirstInvisibleByCategory
-                                (random.nextInt()%6+1);
+                                (random.nextInt() % 6 + 1);
                         tasksDao.setVisibilityByID(randId, 1);
                         Task task = tasksDao.getByTaskId(randId);
-                        if (task!=null) {
+                        if (task != null) {
                             String key = task.getKey();
                             dataBase.child(key).child("visibility").setValue(1);
 
@@ -139,7 +133,7 @@ public class MainActivity extends FragmentActivity {
                                 Toast toast = Toast.makeText(getBaseContext(),
                                         "Случайных заданий не может быть больше" +
                                                 " 3", Toast.LENGTH_SHORT);
-                                ((TextView)((LinearLayout)toast.getView()).getChildAt(0))
+                                ((TextView) ((LinearLayout) toast.getView()).getChildAt(0))
                                         .setGravity(Gravity.CENTER_HORIZONTAL);
                                 toast.show();
                             }
@@ -164,15 +158,6 @@ public class MainActivity extends FragmentActivity {
             View navView = findViewById(R.id.nav_view);
             navView.setVisibility(View.GONE);
         });
-
-        //This code should cancel the popup menu
-        /*View overallView = findViewById(R.id.main);
-        overallView.setOnClickListener(v -> {
-            popupWindow.dismiss();
-            popupWindow = null;
-            Toast.makeText(this,"I should disappear",Toast.LENGTH_SHORT).show();
-            overallView.setOnClickListener(null);
-        });*/
     }
 
     @Override
@@ -197,9 +182,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     public void onStart() {
         super.onStart();
-        //dataBase = FirebaseDatabase.getInstance().getReference(TABlE);
 
-        //getDataFromDB();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user == null) {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
@@ -224,11 +207,11 @@ public class MainActivity extends FragmentActivity {
                         if (currentUser != null && task.getUserID().equals(currentUser.getUid())) {
                             tasksDao.insert(task)
                                     .subscribeOn(Schedulers.single()).subscribe();
-                            Log.e("onDataChange", "I FUCKING HATE N " + task.getTaskTitle());
                         }
                     }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

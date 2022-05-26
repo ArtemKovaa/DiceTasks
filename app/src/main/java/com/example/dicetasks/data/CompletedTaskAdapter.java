@@ -31,10 +31,6 @@ public class CompletedTaskAdapter extends RecyclerView.Adapter<CompletedTaskAdap
     public CompletedTaskAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.completed_task_card, parent, false);
-        view.setOnClickListener(v -> {
-            Toast toast = Toast.makeText(v.getContext(), "Hello",Toast.LENGTH_LONG);
-            toast.show();
-        });
         return new CompletedTaskAdapter.ViewHolder(view);
     }
 
@@ -56,7 +52,6 @@ public class CompletedTaskAdapter extends RecyclerView.Adapter<CompletedTaskAdap
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.e("I'M ONBINDVIEWHOLDER", Long.toString(completedTask.getId()));
                     tasksDao.deleteCompletedById(completedTask.getId());
                 }
             }).start();
