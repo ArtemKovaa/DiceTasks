@@ -117,7 +117,7 @@ public class MainActivity extends FragmentActivity {
                 public void run() {
                     if (tasksDao.countRands() < 3) {
                         int randId = tasksDao.getFirstInvisibleByCategory
-                                (random.nextInt() % 6 + 1);
+                                (random.nextInt() % 35 + 1);
                         tasksDao.setVisibilityByID(randId, 1);
                         Task task = tasksDao.getByTaskId(randId);
                         if (task != null) {
