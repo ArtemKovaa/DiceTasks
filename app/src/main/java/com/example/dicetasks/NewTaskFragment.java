@@ -25,6 +25,9 @@ import com.example.dicetasks.data.Task;
 import com.example.dicetasks.data.TasksDB;
 import com.example.dicetasks.data.TasksDao;
 import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
@@ -40,6 +43,9 @@ public class NewTaskFragment extends Fragment {
     RadioButton highPriorityButton;
     RadioButton mediumPriorityButton;
     RadioButton lowPriorityButton;
+
+    DatabaseReference dataBase;
+    final String TABlE = "Tasks";
 
     Integer taskPriority;
 
@@ -61,6 +67,8 @@ public class NewTaskFragment extends Fragment {
 
         TasksDB tasksDB = TasksDB.getInstance(getActivity());
         TasksDao tasksDao = tasksDB.tasksDao();
+
+        dataBase = FirebaseDatabase.getInstance().getReference(TABlE);
 
         returnButton = view.findViewById(R.id.returnButton);
         addTaskButton = view.findViewById(R.id.addTaskButton);
@@ -90,12 +98,21 @@ public class NewTaskFragment extends Fragment {
                 return;
             }
 
-            disposable = tasksDao.insert(task)
-                    .subscribeOn(Schedulers.io()).subscribe(this::returnToHomeScreen);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    task.setUserID(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    String key = dataBase.push().getKey();
+                    task.setKey(key);
+                    tasksDao.insert(task);
+                    dataBase.child(key).setValue(task);
+                }
+            }).start();
 
             //Makes the navView appear back
             View navView = requireActivity().findViewById(R.id.nav_view);
             navView.setVisibility(View.VISIBLE);
+            returnToHomeScreen();
         });
 
         highPriorityButton.setOnClickListener(v -> {
@@ -145,7 +162,6 @@ public class NewTaskFragment extends Fragment {
                 returnToHomeScreen();
             }
         };
-        // TODO: check if getViewLifecycleOwner is not in very high SDK (21 required)
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
         return view;

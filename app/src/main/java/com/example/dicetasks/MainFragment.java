@@ -1,6 +1,7 @@
 package com.example.dicetasks;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,19 @@ import com.example.dicetasks.data.TaskAdapter;
 import com.example.dicetasks.data.TasksDB;
 import com.example.dicetasks.data.TasksDao;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
+import java.util.Objects;
 
+import io.reactivex.Completable;
+import io.reactivex.CompletableObserver;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -27,17 +38,18 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MainFragment extends Fragment {
 
-    FloatingActionButton addTaskButton;
-    private FragmentActivity activityContext;
-    private TaskAdapter taskAdapter;
     RecyclerView recyclerView;
     List<Task> loadedTasks;
+    final String TABlE = "Tasks";
+    DatabaseReference dataBase;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.main_fragment, container, false);
+
+        dataBase = FirebaseDatabase.getInstance().getReference(TABlE);
 
         getActivity().findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
         TextView textView = getActivity().findViewById(R.id.active_tasks_text);
@@ -53,15 +65,6 @@ public class MainFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        //addTaskButton = view.findViewById(R.id.add_task_button);
-        /*addTaskButton.setOnClickListener(v -> {
-            getActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, NewTaskFragment.class, null)
-                    .setReorderingAllowed(true)
-                    .addToBackStack("name")
-                    .commit();
-        });*/
 
         tasksDao.getTasks()
                 .subscribeOn(Schedulers.io())
@@ -93,10 +96,44 @@ public class MainFragment extends Fragment {
         return view;
     }
 
-    public void initRecyclerView(View v) {
+    private void getDataFromDB() {
+        TasksDB tasksDB = TasksDB.getInstance(getActivity());
+        TasksDao tasksDao = tasksDB.tasksDao();
+
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                tasksDao.deleteAllTasks().subscribeOn(Schedulers.single()).subscribe();
+                for (DataSnapshot ds : snapshot.getChildren()) {
+
+                    Task task = ds.getValue(Task.class);
+                    if (task != null) {
+                        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                        if (currentUser != null && task.getUserID().equals(currentUser.getUid())) {
+                            tasksDao.insert(task)
+                                    .subscribeOn(Schedulers.single()).subscribe();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        dataBase.addValueEventListener(valueEventListener);
+    }
+
+    private void initRecyclerView(View v) {
         RecyclerView recyclerView = v.findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getParent());
         recyclerView.setLayoutManager(layoutManager);
+    }
+
+    private void firstStartRandomLoad() {
+
     }
 
     @NonNull

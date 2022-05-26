@@ -1,5 +1,6 @@
 package com.example.dicetasks.data;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +10,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dicetasks.R;
 
 import java.util.List;
-import java.util.Stack;
+
+import io.reactivex.schedulers.Schedulers;
 
 public class CompletedTaskAdapter extends RecyclerView.Adapter<CompletedTaskAdapter.ViewHolder> {
 
@@ -30,10 +31,6 @@ public class CompletedTaskAdapter extends RecyclerView.Adapter<CompletedTaskAdap
     public CompletedTaskAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.completed_task_card, parent, false);
-        view.setOnClickListener(v -> {
-            Toast toast = Toast.makeText(v.getContext(), "Hello",Toast.LENGTH_LONG);
-            toast.show();
-        });
         return new CompletedTaskAdapter.ViewHolder(view);
     }
 
@@ -42,8 +39,8 @@ public class CompletedTaskAdapter extends RecyclerView.Adapter<CompletedTaskAdap
     public void onBindViewHolder(@NonNull CompletedTaskAdapter.ViewHolder holder, int position) {
         CompletedTask completedTask = data.get(position);
 
-        holder.title.setText(completedTask.getCompletedTaskTitle());
-        holder.description.setText(completedTask.getCompletedTaskDescription());
+        holder.title.setText(completedTask.getTaskTitle());
+        holder.description.setText(completedTask.getTaskDescription());
         holder.cardView.setAlpha(0.6f);
 
         ImageButton imageButton = holder.imageButton;

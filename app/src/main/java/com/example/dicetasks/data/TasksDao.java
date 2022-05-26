@@ -20,6 +20,9 @@ public interface TasksDao {
     @Query("SELECT * FROM tasks WHERE id=:id")
     Observable<Task> getById(int id);
 
+    @Query("SELECT * FROM tasks WHERE id=:id")
+    Task getByTaskId(int id);
+
     @Query("SELECT * FROM tasks ORDER BY taskPriority DESC")
     Observable<List<Task>> getTasks();
 
@@ -34,6 +37,12 @@ public interface TasksDao {
 
     @Query("DELETE FROM completed_tasks WHERE id = :id")
     void deleteCompletedById(long id);
+
+    @Query("DELETE FROM tasks")
+    Completable deleteAllTasks();
+
+    @Query("DELETE FROM completed_tasks")
+    Completable deleteAllCompletedTasks();
 
     //Thing that gets tasks in db
     @Query("SELECT COUNT(*) FROM tasks WHERE taskPriority = 3 AND visibility != 0")

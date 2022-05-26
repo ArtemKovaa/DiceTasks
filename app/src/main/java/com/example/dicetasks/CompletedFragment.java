@@ -35,7 +35,7 @@ public class CompletedFragment extends Fragment {
         View view = inflater.inflate(R.layout.completed_fragment, container, false);
         getActivity().findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
         TextView textView = getActivity().findViewById(R.id.active_tasks_text);
-        textView.setText("Выполненные задания");
+        textView.setText("Сделанные задания");
 
         TasksDB tasksDB = TasksDB.getInstance(getActivity());
         TasksDao tasksDao = tasksDB.tasksDao();
