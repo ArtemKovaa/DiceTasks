@@ -100,16 +100,20 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                 @Override
                 public void run() {
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                    Query applesQuery = ref.child("Tasks").orderByChild("key").equalTo(task.getKey());
+                    DatabaseReference stats = FirebaseDatabase.getInstance().getReference("Statistics");
+                    Query query = ref.child("Tasks").orderByChild("key").equalTo(task.getKey());
 
-                    applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                            for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                                 if(task.getTaskPriority() == 3) {
-                                    appleSnapshot.getRef().child("visibility").setValue(0);
+                                    snapshot.getRef().child("visibility").setValue(0);
+                                    // stats.child(task.getUserID()).setValue(stats.child(task
+                                    //        .getUserID()).child("completedRandoms"));
+
                                 } else {
-                                    appleSnapshot.getRef().removeValue();
+                                    snapshot.getRef().removeValue();
                                 }
                                 new Thread(new Runnable() {
                                     @Override
@@ -125,8 +129,42 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
                         }
                     });
+
+                    stats.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                                Statistics statistics = snapshot.getValue(Statistics.class);
+                                if (statistics != null) {
+                                    if (task.getUserID().equals(statistics.getUserID())) {
+                                        if(task.getTaskPriority() == 3) {
+                                            snapshot.getRef().child("completedRandoms")
+                                                    .setValue(statistics.getCompletedRandoms() + 1);
+                                        } else {
+                                            snapshot.getRef().child("completedUsers")
+                                                    .setValue(statistics.getCompletedUsers() + 1);
+                                        }
+                                    }
+                                }
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        tasksDao.deleteById(task.getId());
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
                 }
             }).start();
+
+
 
             new Thread(new Runnable() {
                 @Override

@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dicetasks.data.RandomTask;
 import com.example.dicetasks.data.TasksDB;
 import com.example.dicetasks.data.TasksDao;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -95,17 +94,24 @@ public class RegisterActivity extends AppCompatActivity {
 
                         DatabaseReference randTasksBase = FirebaseDatabase.getInstance().getReference("RandomTasks");
                         DatabaseReference database = FirebaseDatabase.getInstance().getReference("Tasks");
+                        DatabaseReference stats = FirebaseDatabase.getInstance().getReference("Statistics");
                         ValueEventListener valueEventListener = new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                int counter = 0;
                                 for (DataSnapshot ds : snapshot.getChildren()) {
                                     com.example.dicetasks.data.Task task = ds.getValue(com.example.dicetasks.data.Task.class);
+                                    com.example.dicetasks.data.Statistics statistics = ds.getValue(com.example.dicetasks.data.Statistics.class);
                                     if (task != null) {
                                         task.setUserID(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                        statistics.setUserID(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                        if (counter == 0) {
+                                            stats.push().setValue(statistics);
+                                        }
                                         String key = database.push().getKey();
                                         task.setKey(key);
                                         database.child(key).setValue(task);
-
+                                        counter++;
                                     }
                                 }
                             }
@@ -115,6 +121,8 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         };
                         randTasksBase.addValueEventListener(valueEventListener);
+
+
 
                         startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                     }
